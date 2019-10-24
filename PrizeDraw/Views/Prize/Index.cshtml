@@ -1,0 +1,60 @@
+﻿@using PrizeDraw.DataLayer.Model
+@model PrizeIndexViewModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4>Prizes</h4>
+        <a class="btn btn-primary floatLeft" asp-action="Create" asp-controller="Prize"> Add</a>
+        <form asp-action="GenerateWinners" asp-controller="Prize" method="post">
+            <input class="btn btn-primary floatLeft" value="Generate Winners" type="submit" />
+        </form>
+        @if(Model.NumberOfWinnersDrawn.HasValue)
+        {
+            <span>@Model.NumberOfWinnersDrawn Winners Drawn</span>
+        }
+        <br />
+        <hr />
+        <div id="vendorsManage" class="text-left">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Sponsor</th>
+                        <th>Available</th>
+                        <th>Winners</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (PrizeModel prize in Model.Prizes)
+                    {
+                        <tr>
+                            <td>
+                                @if (prize.Image != null)
+                                {
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(prize.Image)" width="100" height="100" />
+                                }
+                            </td>
+                            <td>@prize.Name</td>
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(prize.SponsorName))
+                                {
+                                    @prize.SponsorName;
+                                }
+                                else
+                                {
+                                    <span>N/A</span>
+                                }
+                        </td>
+                        <td>@prize.NumberAvailable</td>
+                        <td>@prize.NumberOfWinners</td>
+                        <td><a asp-controller="Prize" asp-action="Details" asp-route-id="@prize.Id">Details</a> | <a asp-controller="Prize" asp-action="Edit" asp-route-id="@prize.Id">Edit</a></td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <hr />
+        </div>
+    </div>
+</div>

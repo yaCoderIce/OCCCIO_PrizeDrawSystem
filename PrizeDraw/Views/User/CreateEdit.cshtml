@@ -1,0 +1,58 @@
+﻿@model PrizeDraw.Models.UserCreateEditViewModel
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8 offset-lg-2 text-left">
+        <form autocomplete="off" asp-action="@ViewContext.RouteData.Values["action"]" asp-controller="User" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                @if (!string.IsNullOrWhiteSpace(Model.UserName))
+                {
+                    <input asp-for="UserName" class="form-control" readonly/>
+                }
+                else
+                {
+                    <input asp-for="UserName" class="form-control" />
+                }
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <!-- Prevent firefox from autofilling -->
+                <input type="text" style="display:none">
+                <input type="password" style="display:none">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PasswordValidate" class="control-label"></label>
+                <input asp-for="PasswordValidate" class="form-control" />
+                <span asp-validation-for="PasswordValidate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VendorId" class="control-label"></label>
+                <select asp-for="VendorId" asp-items="@Model.VendorListItems" class="form-control">
+                    <option value="">No Vendor</option>
+                </select>
+                <span asp-validation-for="VendorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Roles" class="control-label"></label>
+                <select multiple="multiple" asp-for="Roles" asp-items="@Model.RolesListItems" class="form-control"></select>
+                <span asp-validation-for="Roles" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

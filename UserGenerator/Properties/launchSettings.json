@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PrizeDrawTool": {
+      "commandName": "Project",
+      "commandLineArgs": "u C:\\pdrawtool"
+    }
+  }
+}

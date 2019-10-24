@@ -1,0 +1,120 @@
+﻿@using PrizeDraw.DataLayer.Model
+@model AttendeeIndexViewModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4>Manage Attendees</h4>
+        <div class="text-left">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            @if (Model.NumberImportedAttendees != null)
+            {
+                <p>Imported @Model.NumberImportedAttendees.Value attendees</p>
+            }
+        </div>
+        <a class="btn btn-primary floatLeft" asp-action="Create" asp-controller="Attendee">Add New</a>
+        <a class="btn btn-secondary floatLeft" href="javascript:showImport();">Import</a>
+        <br />
+        <div id="importAttendees">
+            <hr />
+            <div class="text-left">
+                <form asp-action="Import" asp-controller="Attendee" method="post" enctype="multipart/form-data">
+                    <label for="attendeeFile">Upload Attendees (csv):</label>
+                    <input type="file" accept=".csv" id="attendeeFile" name="attendeeFile" />
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+            <hr />
+        </div>
+        <br />
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        @{ Attendee attendeeDummy = null; /* workaround for viewmodels with internal lists */ }
+                        <th>
+                            @Html.DisplayNameFor(model => attendeeDummy.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => attendeeDummy.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => attendeeDummy.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => attendeeDummy.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => attendeeDummy.MobilePhone)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => attendeeDummy.JobTitle)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => attendeeDummy.Company)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => attendeeDummy.IsCheckedIn)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Attendees)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MobilePhone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Company)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsCheckedIn)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                <!--@Html.ActionLink("Delete", "Delete", new { id = item.Id })-->
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#importAttendees').hide();
+        });
+
+        var importToggle = true;
+        function showImport() {
+            if (importToggle) {
+                $('#importAttendees').fadeIn();
+            } else {
+                $('#importAttendees').fadeOut();
+            }
+
+            importToggle = !importToggle;
+        }
+    </script>
+}

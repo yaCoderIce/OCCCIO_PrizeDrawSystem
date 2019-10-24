@@ -1,0 +1,165 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DisplayLayout.cshtml";
+}
+@using PrizeDraw.DataLayer.Model
+@model DisplayWinningTicketsViewModel
+<div class="row">
+    <div class="col-lg-12">
+        @if (Model.NextPrizeId.HasValue)
+        {
+            <a class="btn btn-primary float-right" asp-controller="Display" asp-action="Details" asp-route-id="@(Model.NextPrizeId)">Next Prize</a>
+        }
+        else
+        {
+            <a class="btn btn-primary float-right" asp-controller="Display" asp-action="Index">Done</a>
+        }
+            <span class="h3 text-secondary float-right" id="prizesLeftToDrawText">@((Model.TotalNumberOfUnwonPrizes < 1) ? Model.TotalNumberOfUnwonPrizes : Model.TotalNumberOfUnwonPrizes - 1) Prizes Left to Draw</span>
+    </div>
+</div>
+<div class="row">
+     <div class="col-lg-5">
+        <p class="display-4" id="prizeName">@Model.PrizeName</p>
+        <p class="h2 text-secondary"><span id="numberOfPrizes">@Model.PrizesAvailable</span> Available</p>
+        @if (Model.PrizeImage != null)
+        {
+            <img class="displayPrizeImage" height="100" width="100" src="data:image;base64,@System.Convert.ToBase64String(Model.PrizeImage)" />
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.SponsorName))
+        {
+            <p class="h3">Sponsored By: @Model.SponsorName</p>
+            @if (Model.SponsorLogo != null)
+            {
+                <img class="displayPrizeImage" height="300" width="300" src="data:image;base64,@System.Convert.ToBase64String(Model.SponsorLogo)" />
+            }
+        }
+    </div>
+     <div class="col-lg-7" id="rightSide">
+         @if (Model.NumberOfBallots > 0)
+         {
+             <span class="display-4">Winners </span>
+             <hr />
+             <div class="winnerName" id="winnerSpinner">
+                 <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+             </div>
+             <ul class="inline" id="winnerList">
+                 @foreach (Attendee winner in Model.Winners)
+                 {
+                     <li class="winnerName">
+                         <span class="h1">@winner.FirstName @winner.LastName</span>
+                         <a class='btn' href='#' onclick='redrawPrizeWinner(this, @winner.Id)'> X</a>
+                         <br />
+                         <span class='h3'>@winner.Company</span>
+                     </li>
+                 }
+             </ul>
+         }
+         else
+         {
+             <p class='text-danger'>Not Enough Ballots For Prize</p>
+         }
+     </div>
+</div>
+@section scripts {
+    <script>
+        var numberOfAvailablePrizes = @Model.PrizesAvailable;
+        var allowRedraw = true;
+
+        $(document).ready(function () {
+            showHideSpinner(true);
+        });
+
+        document.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+
+                drawWinner();
+            }
+        });
+
+        function showHideSpinner(hidden) {
+            if (hidden) {
+                $('#winnerSpinner').hide();
+            } else {
+                $('#winnerSpinner').show();
+            }
+        }
+
+
+        function drawWinner() {
+            if (numberOfAvailablePrizes > 0) {
+                numberOfAvailablePrizes--;
+
+                showHideSpinner(false);
+
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        Id: @Model.PrizeId
+                }),
+                    url: "@Url.Action("DrawPrizeWinner", "Prize")",
+                    success: drawWinnerSuccess,
+                    error: function (xhr) {
+                        console.log(xhr);
+
+                        showHideSpinner(true);
+                    }
+                });
+            }
+        }
+
+        function updateNumberOfPrizesDisplay() {
+            $('#numberOfPrizes').html(numberOfAvailablePrizes);
+        }
+
+        function showWinner(winnerObj) {
+            $('#winnerList').prepend("<li class='winnerName'><span class='h1'>" + winnerObj.name + "</span>" +
+                "<a class='btn' href='#' onclick='redrawPrizeWinner(this," + winnerObj.attendeeId + ")'> X</a><br /><span class='h4'>" +
+                winnerObj.organizationName + "</span></li>").fadeIn();
+        }
+
+        function redrawPrizeWinner(listElement, attendeeId) {
+            // Gaurd to prevent double tapping button
+            if (allowRedraw) {
+                allowRedraw = false;
+
+                showHideSpinner(false);
+
+                $(listElement).closest('.winnerName').hide();
+
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        PrizeId: @Model.PrizeId,
+                        AttendeeId: attendeeId
+                    }),
+                    url: "@Url.Action("RedrawWinner", "Prize")",
+                    success: drawWinnerSuccess,
+                    error: function (xhr) {
+                        alert("Well this isn't good...Error drawing winners");
+                        console.log(xhr);
+                    }
+                });
+            }
+        }
+
+        function drawWinnerSuccess(winnerObj, statusText, xhr) {
+            allowRedraw = true;
+
+            showHideSpinner(true);
+
+            if (xhr.status == 200) {
+                console.log(winnerObj);
+
+                updateNumberOfPrizesDisplay();
+                showWinner(winnerObj);
+            } else {
+                console.log("Came back from ballot box empty handed...Anyone available to win?");
+            }
+        }
+    </script>
+}

@@ -1,0 +1,48 @@
+﻿@using PrizeDraw.DataLayer.Model
+@model VendorIndexViewModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4>Vendors</h4><a class="btn btn-primary floatLeft" asp-action="Create" asp-controller="Vendor"> Add</a>
+        <br />
+        <hr />
+        <div id="vendorsManage" class="text-left">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Logo</th>
+                        <th>Name</th>
+                        <th>Linked Accounts</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Vendor vendor in Model.Vendors)
+                    {
+                        <tr>
+                            <td>
+                                @if (vendor.Logo != null)
+                                {
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(vendor.Logo)" width="100" height="50" />
+                                }
+                            </td>
+                            <td>@vendor.Name</td>
+                            <td>
+                                <ul>
+                                    @foreach (User user in vendor.Users)
+                                    {
+                                        <li>
+                                        @user.UserName
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
+                            <td><a asp-controller="Vendor" asp-action="Edit" asp-route-id="@vendor.Id">Edit</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <hr />
+        </div>
+    </div>
+</div>

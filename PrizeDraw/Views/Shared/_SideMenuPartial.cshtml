@@ -1,0 +1,26 @@
+﻿@inject SignInManager<User> SignInManager
+
+<div id="mainMenu" class="text-primary bg-lightgrey">
+    <ul>
+        <li id="home"><a asp-controller="Home" asp-action="Index">Home</a></li>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @if (User.IsInRole("Staff") || User.IsInRole("Admin"))
+            {
+                <li id="checkIn"><a asp-controller="CheckIn" asp-action="Index">Check In</a></li>
+            }
+            @if (User.IsInRole("Admin"))
+            {
+                <li id="display"><a asp-controller="Display" asp-action="Index">Display</a></li>
+            }
+            @if (User.IsInRole("Vendor") || User.IsInRole("Admin"))
+            {
+                <li id="vendor"><a asp-controller="Vendor" asp-action="CreateBallot">Vendor</a></li>
+            }
+            @if (User.IsInRole("Admin"))
+            {
+                <li id="manage"><a asp-controller="Manage" asp-action="Index">Manage</a></li>
+            }
+        }
+        </ul>
+</div>

@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Manage System</h1>
+<hr />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-6 border component"><a asp-controller="Prize" asp-action="Index" class="btn btn-link">Manage Prizes</a></div>
+            <div class="col-lg-6 border component"><a asp-controller="Vendor" asp-action="Index" class="btn btn-link">Manage Vendors</a></div>
+            <div class="col-lg-6 border component"><a asp-controller="Attendee" asp-action="Index" class="btn btn-link">Manage Attendees</a></div>
+            <div class="col-lg-6 border component"><a asp-controller="User" asp-action="Index" class="btn btn-link">Manage Users</a></div>
+        </div>
+    </div>
+</div>
+
