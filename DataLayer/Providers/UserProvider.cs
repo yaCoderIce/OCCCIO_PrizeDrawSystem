@@ -64,5 +64,6 @@ namespace PrizeDraw.DataLayer.Providers
         {
             DatabaseContext.UserRoles.Add(userRole);
         }
+
     }
 }

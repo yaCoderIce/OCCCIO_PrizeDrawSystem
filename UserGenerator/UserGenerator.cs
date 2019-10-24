@@ -70,7 +70,14 @@ namespace PrizeDrawTool
 
             foreach (User user in provider.GetUsers())
             {
-                CreatePasswordForUser(user);
+                //TODO Dirty code. exclude this at the DB level to get rid of the if statements.
+
+                //If user does not have a password
+                if (user.PasswordHash == null)
+                {
+                    //Generate a password
+                    CreatePasswordForUser(user);
+                }
             }
 
             await provider.SaveAsync();
@@ -93,14 +100,14 @@ namespace PrizeDrawTool
                 .Replace("\\", ".")
                 .ToLowerInvariant();
 
-            return (userName.Length > 10) ? userName.Substring(0, 10) : userName;   
+            return (userName.Length > 10) ? userName.Substring(0, 10) : userName;
         }
 
         private string GenerateRandomString(int length)
         {
             char[] chars = new char[length];
 
-            for(int i = 0; i < length; i++)
+            for (int i = 0; i < length; i++)
             {
                 chars[i] = (char)Next(48, 126);
             }
@@ -114,7 +121,7 @@ namespace PrizeDrawTool
             {
                 throw new ArgumentOutOfRangeException(nameof(minValue));
             }
-            if( maxValue < minValue )
+            if (maxValue < minValue)
             {
                 throw new ArgumentOutOfRangeException(nameof(maxValue));
             }
@@ -140,9 +147,24 @@ namespace PrizeDrawTool
             return returnValue;
         }
 
+        /// <summary>
+        /// Writing the passwords to a file where the filename is timestamped, this is to avoid overwriting existing files.
+        /// </summary>
+        /// <param name="path"></param>
         public void WritePasswordsToFile(string path)
         {
-            using (StreamWriter streamWrite = File.CreateText(path + "\\UserList.csv"))
+            //Declaring the variable to store the name of the File as fileName
+            String fileName = "UserList";
+
+            //Getting the current DateTime as a String
+            String timeStamp = (DateTime.Now).ToString("yyyy-MM-ddTHHmmss");
+
+            //Adding the timeStamp to fileName with a dash
+            fileName += "-" + timeStamp;
+            //Adding the extension
+            fileName += ".csv";
+
+            using (StreamWriter streamWrite = File.CreateText(path + "\\"+fileName))
             {
                 foreach ((User, string) userPassword in UserPasswords)
                 {
