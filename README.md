@@ -29,3 +29,7 @@ To change the arguments and run within Visual Studios
 The program will create a csv file at [path] with the password for the users in the system missing a password.
 
 
+Known issues:
+The Prize draw app will only start drawing ballots if the number of ballots is greater than to number of prizes available. This means if you have 2 attendees as your test input data, the max number of prizes per entry is 1. If you ahve 3 attendees, the max is 2.
+
+The 'Draw Prize' function in the display screens, do not use the Generate Winner button in the Manager Prize screen unless it is intended for testing. On the Display screen, when the 'Winner' title is available, press Enter to have the system draw a winner from the pool.

@@ -104,5 +104,5 @@ INSERT INTO UserRoles (
 		, 1
 );
 
---COMMIT
+COMMIT;
 --ROLLBACK

@@ -70,7 +70,12 @@ namespace PrizeDrawTool
 
             foreach (User user in provider.GetUsers())
             {
-                //TODO Dirty code. exclude this at the DB level to get rid of the if statements.
+                //TODO Dirty code. exclude this at the DB level to get rid of the if statement. 
+                //The idea is to replace the GetUsers() method with a new one where it will honour the following SQL:
+                //SELECT * 
+                //      FROM Users 
+                //      WHERE HashPassword IS NULL
+                //;
 
                 //If user does not have a password
                 if (user.PasswordHash == null)
