@@ -34,3 +34,4 @@ The Prize draw app will only start drawing ballots if the number of ballots is g
 
 The 'Draw Prize' function in the display screens, do not use the Generate Winner button in the Manager Prize screen unless it is intended for testing. On the Display screen, when the 'Winner' title is available, press Enter to have the system draw a winner from the pool.
 
+Unable to edit data from detail window, since it doesn't pass the key value to the function. It will throw System.InvalidOperationException: 'Sequence contains no elements'.
