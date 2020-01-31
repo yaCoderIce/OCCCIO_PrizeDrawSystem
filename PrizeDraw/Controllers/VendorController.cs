@@ -30,6 +30,7 @@ namespace PrizeDraw.Controllers
         }
 
         [Authorize(Roles="Admin")]
+        //
         public IActionResult Index()
         {
             VendorIndexViewModel viewModel = new VendorIndexViewModel()

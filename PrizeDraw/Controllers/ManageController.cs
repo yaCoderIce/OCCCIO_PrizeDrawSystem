@@ -15,6 +15,7 @@ namespace PrizeDraw.Views.Manage
     public class ManageController : Controller
     { 
         [Authorize(Roles="Admin")]
+        //GET: Manage
         public IActionResult Index()
         {
             return View();

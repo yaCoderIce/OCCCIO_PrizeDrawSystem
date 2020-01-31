@@ -192,20 +192,31 @@ h1,h3 {
     background-color: #0077BE;
 }
 
+.bg-lightgreen {
+    background-color: #007852;
+}
+
 .bg-lightgrey {
-    background-color: #404040;
+    background-color: #45A046;
 }
 
-.bg-darkgrey {
-    background-color: #262626;
+a:link, a:visited {
+    text-decoration: underline;
+    cursor: pointer !important;
 }
 
-.txt-primary {
-    color: #444444;
+    a:link:active, a:visited:active {
+        cursor: pointer !important;
+    }
+
+.txt-menu {
+    color: #ffffff !important;
+    font-family: 'Oswald', sans-serif !important;
 }
 
 .txt-secondary {
-    color: #4F4F4F;
+    color: #0B8261 !important;
+    font-family: 'Lato', sans-serif !important;
 }
 
 /* Loading bar */

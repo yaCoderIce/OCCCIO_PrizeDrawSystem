@@ -2,7 +2,7 @@
   "profiles": {
     "PrizeDrawTool": {
       "commandName": "Project",
-      "commandLineArgs": "p C:\\pdrawtool"
+      "commandLineArgs": "b y"
     }
   }
 }

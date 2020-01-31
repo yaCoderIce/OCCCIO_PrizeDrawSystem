@@ -11,6 +11,9 @@ using PrizeDraw.DataLayer.Model.Identity;
 
 namespace PrizeDraw.Areas.Identity.Pages.Account
 {
+    /// <summary>
+    /// Manage user log out
+    /// </summary>
     [AllowAnonymous]
     public class LogoutModel : PageModel
     {
@@ -22,11 +25,19 @@ namespace PrizeDraw.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
         }
-
+        /// <summary>
+        /// Similar to _GET
+        /// Run during page request
+        /// </summary>
         public void OnGet()
         {
         }
-
+        /// <summary>
+        /// Similar to _POST
+        /// Run after user click on button
+        /// </summary>
+        /// <param name="returnUrl">current url</param>
+        /// <returns></returns>
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();

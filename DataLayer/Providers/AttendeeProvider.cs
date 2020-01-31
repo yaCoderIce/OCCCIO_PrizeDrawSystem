@@ -16,19 +16,30 @@ namespace PrizeDraw.DataLayer.Providers
         public AttendeeProvider(PrizeDrawDatabaseContext databaseContext) : base(databaseContext)
         {
         }
-
+        /// <summary>
+        /// Get - get attendee by id
+        /// </summary>
+        /// <param name="id">input attendee id</param>
+        /// <returns>attendee of the id</returns>
         public IQueryable<Attendee> Get(int id)
         {
             return (from a in DatabaseContext.Attendees
                     where a.Id == id
                     select a);
         }
-
+        /// <summary>
+        /// Get - get all attendee
+        /// </summary>
+        /// <returns>all attendee</returns>
         public IQueryable<Attendee> Get()
         {
             return DatabaseContext.Attendees;
         }
-
+        /// <summary>
+        /// AttendeeExists - check if the attendee exist
+        /// </summary>
+        /// <param name="id">input attendee id</param>
+        /// <returns>true or false</returns>
         public bool AttendeeExists(int id)
         {
             return (from a in DatabaseContext.Attendees
@@ -40,7 +51,11 @@ namespace PrizeDraw.DataLayer.Providers
                      where a.Id == id
                      select a).FirstOrDefault() != null);
         }
-
+        /// <summary>
+        /// GetAttendeesScannedBy - get all attendees scanned by the vendor
+        /// </summary>
+        /// <param name="vendorId">input vendor id</param>
+        /// <returns>list of attendee scanned by the vendor</returns>
         public IQueryable<Attendee> GetAttendeesScannedBy(int vendorId)
         {
             return (from s in DatabaseContext.Scans

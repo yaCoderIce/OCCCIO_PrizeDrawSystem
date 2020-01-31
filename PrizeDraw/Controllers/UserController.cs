@@ -12,7 +12,9 @@ using PrizeDraw.DataLayer.Model;
 using PrizeDraw.DataLayer.Model.Identity;
 using PrizeDraw.Identity;
 using PrizeDraw.Models;
-
+/// <summary>
+/// Generate new user
+/// </summary>
 namespace PrizeDraw.Controllers
 {
     public class UserController : Controller
@@ -22,8 +24,7 @@ namespace PrizeDraw.Controllers
         private VendorDataAccessor _vendorDataAccessor;
 
         private UserManager<User> _userManager;
-
-
+        
         public UserController(PrizeDrawDatabaseContext context,
             UserManager<User> userManager)
         {

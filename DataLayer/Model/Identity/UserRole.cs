@@ -4,6 +4,10 @@ using System.Text;
 
 namespace PrizeDraw.DataLayer.Model.Identity
 {
+    /// <summary>
+    /// UserRole Class,
+    /// @see UserRoles tables
+    /// </summary>
     public class UserRole
     {
         public int UserId { get; set; }

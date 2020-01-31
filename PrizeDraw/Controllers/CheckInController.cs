@@ -22,6 +22,7 @@ namespace PrizeDraw.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Staff,Admin")]
+        //GET: CheckIn
         public IActionResult Index()
         {
             return CreateIndexViewResult(string.Empty);
@@ -29,6 +30,7 @@ namespace PrizeDraw.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Staff,Admin")]
+        //POST: CheckIn/CheckInAttendee
         public IActionResult CheckInAttendee(int attendeeId)
         {
             string checkedInAttendeeName = string.Empty;
@@ -52,7 +54,11 @@ namespace PrizeDraw.Controllers
 
             return CreateIndexViewResult(checkedInAttendeeName);
         }
-
+        /// <summary>
+        /// CreateIndexViewResult - show info about checkin
+        /// </summary>
+        /// <param name="attendeeName">input attendee name</param>
+        /// <returns></returns>
         private IActionResult CreateIndexViewResult(string attendeeName)
         {
             CheckInIndexViewModel checkInIndexViewModel = new CheckInIndexViewModel()

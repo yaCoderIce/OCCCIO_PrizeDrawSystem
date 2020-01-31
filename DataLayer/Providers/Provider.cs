@@ -10,9 +10,14 @@ namespace PrizeDraw.DataLayer.Providers
     public abstract class Provider
     {
         protected PrizeDrawDatabaseContext DatabaseContext { get; private set; }
-
+        /// <summary>
+        /// Parameterized Constructor
+        /// Connect to database
+        /// </summary>
+        /// <param name="connectionString"></param>
         protected Provider(string connectionString)
         {
+            //Check if the connectionstirng is empty
             if (string.IsNullOrWhiteSpace(connectionString))
             {
                 throw new ArgumentNullException(nameof(connectionString));

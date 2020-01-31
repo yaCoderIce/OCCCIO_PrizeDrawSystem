@@ -1,10 +1,13 @@
-﻿<!DOCTYPE html>
+﻿<!-- This file is a templaye for all content pages, similar to a master page
+    Contain: header, footer, site navigation, site CSS
+    
+    -->
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PrizeDraw</title>
-
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
@@ -13,22 +16,34 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="/>
+              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
     </environment>
+
+    <!-- Import CSS -->
     <link rel="stylesheet" href="~/css/site.css" />
+    
+    <!-- Import Font -->
+    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <div class="container-fluid">
+        <!-- Display Header-->
         <partial name="_HeaderPartial" />
         <main role="main">
             <div>
+                <!-- Display Site Navigation -->
                 <partial name="_SideMenuPartial" />
             </div>
             <div class="content">
+                <!-- Display Site Content -->
                 @RenderBody()
             </div>
         </main>
     </div>
+    <!-- Check the enviroment
+        You can modiy it by right click on the project -> Debug -->
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
@@ -47,6 +62,7 @@
                 integrity="sha256-E/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ/PR7CA4=">
         </script>
     </environment>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)

@@ -14,6 +14,10 @@ namespace PrizeDraw
 {
     public class Startup
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,13 +35,16 @@ namespace PrizeDraw
             });
 
             string connectionStringName = string.Empty;
+            // Specify which connection string to use
+            // @see appsettings.json
 #if (DEV)
             connectionStringName = "PrizeDrawDatabaseDev";
 #elif (PRD)
             connectionStringName = "PrizeDrawDatabaseProd";
 #endif
             services.AddDbContext<PrizeDrawDatabaseContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString(connectionStringName)));
+            // Connect to database
+            options.UseSqlServer(Configuration.GetConnectionString(connectionStringName)));
 
             services.AddIdentity<User, Role>();
             services.AddScoped<SignInManager<User>>();
@@ -46,6 +53,8 @@ namespace PrizeDraw
             services.AddTransient<IUserRoleStore<User>, LightUserStore>();
             services.AddTransient<IRoleStore<Role>, LightRoleStore>();
 
+            // LoginPath,LogoutPath, AccesssDeniedPath
+            // @see Areas File
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Identity/Account/Login";

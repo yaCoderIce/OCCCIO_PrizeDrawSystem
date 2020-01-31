@@ -26,6 +26,7 @@ namespace PrizeDraw.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
+        //GET:
         public IActionResult Index()
         {
             return View(PrizeIndexViewModel.From(_prizeDataAccessor.Get()));
@@ -33,6 +34,7 @@ namespace PrizeDraw.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
+        //GET:
         public IActionResult Edit(int id)
         {
             PrizeCreateEditViewModel viewModel = new PrizeCreateEditViewModel(_prizeDataAccessor.Get(id),

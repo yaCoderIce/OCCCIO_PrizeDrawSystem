@@ -5,8 +5,14 @@ using System.Text;
 
 namespace PrizeDraw.DataLayer.Model
 {
+    /// <summary>
+    /// Attendee Class
+    /// use to generate attendee
+    /// @see Attendees table
+    /// </summary>
     public class Attendee
     {
+
         public int Id { get; set; }
 
         [Display(Name="First Name")]
@@ -59,5 +65,6 @@ namespace PrizeDraw.DataLayer.Model
         public DateTime? CheckedInTime { get; set; }
 
         public IList<Scan> Scans { get; set; }
+        
     }
 }

@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PrizeDraw.DataLayer
 {
+    /// <summary>
+    /// Manage the pipe to the database
+    /// </summary>
     public class PrizeDrawDatabaseContext : DbContext
     {
         public DbSet<User> Users { get; set; }

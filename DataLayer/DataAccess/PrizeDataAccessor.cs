@@ -14,7 +14,7 @@ namespace PrizeDraw.DataLayer.DataAccess
 
         private PrizeProvider _prizeProvider;
         private ScanProvider _scanProvider;
-
+        //Generate random number
         private static readonly Random _randomGenerator = new Random();
 
         public PrizeDataAccessor(PrizeDrawDatabaseContext context)
@@ -22,19 +22,26 @@ namespace PrizeDraw.DataLayer.DataAccess
             _prizeProvider = new PrizeProvider(context);
             _scanProvider = new ScanProvider(context);
         }
-
+        /// <summary>
+        /// Get - Get all prizes
+        /// </summary>
+        /// <returns>List, of all prize</returns>
         public IList<Prize> Get()
         {
             return _prizeProvider.GetPrizes().ToList();
         }
-
+        /// <summary>
+        /// Get - Get Prize of specific prize id
+        /// </summary>
+        /// <param name="id">prize id</param>
+        /// <returns>Prize, of that id</returns>
         public Prize Get(int id)
         {
             return _prizeProvider.GetPrizeById(id);
         }
 
         /// <summary>
-        /// Gets the next prize in an ordered list, sorted by Value then name
+        /// GetNextPrize - Gets the next prize in an ordered list, sorted by Value then name
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -53,14 +60,21 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             return nextPrize;
         }
-
+        /// <summary>
+        /// Insert - Create new prize
+        /// </summary>
+        /// <param name="prize">new prize</param>
         public void Insert(Prize prize)
         {
             _prizeProvider.InsertPrize(prize);
 
             _prizeProvider.Save();
         }
-
+        /// <summary>
+        /// Update - Update existing prize
+        /// </summary>
+        /// <param name="id">prize Id</param>
+        /// <param name="prize">new prize</param>
         public void Update(int id, Prize prize)
         {
             Prize oldPrize = _prizeProvider.GetPrizeById(id);
@@ -76,7 +90,11 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             _prizeProvider.Save();
         }
-
+        /// <summary>
+        /// CreatePrizeTickets - Create 
+        /// </summary>
+        /// <param name="vendorId"></param>
+        /// <param name="attendeeId"></param>
         public void CreatePrizeTickets(int vendorId, int attendeeId)
         {
             // Check to see if the vendor has already scanned the attendee. If they have, just ignore it.
@@ -89,14 +107,17 @@ namespace PrizeDraw.DataLayer.DataAccess
                 _prizeProvider.Save();
             }
         }
-
+        /// <summary>
+        /// GetTotalNumberOfAvailablePrizes - Get number of available prize
+        /// </summary>
+        /// <returns>int, number of available prize</returns>
         public int GetTotalNumberOfAvailablePrizes()
         {
             return _prizeProvider.GetNumberOfUnwonPrizes();
         }
 
         /// <summary>
-        /// Draws winners for all instances of of a prize
+        /// DrawPrizeWinners - Draws winners for all instances of of a prize
         /// </summary>
         /// <param name="prizeId"></param>
         /// <returns>List of tickets that were drawn as winners</returns>
@@ -118,9 +139,9 @@ namespace PrizeDraw.DataLayer.DataAccess
         }
 
         /// <summary>
-        /// Draws winner for every prize and every instance of a prize
+        /// DrawPrizeWinners - Draws winner for every prize and every instance of a prize
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of winner</returns>
         public IList<PrizeTicket> DrawPrizeWinners()
         {
             List<PrizeTicket> winnningTickets = new List<PrizeTicket>();
@@ -132,7 +153,11 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             return winnningTickets;
         }
-
+        /// <summary>
+        /// DrawPrizeWinner - Draw prize winner
+        /// </summary>
+        /// <param name="prizeId">prize id</param>
+        /// <returns>PrizeTicket, ticket for attendee</returns>
         public PrizeTicket DrawPrizeWinner(int prizeId)
         {
             if(GetNumberPrizesAvailbleToDraw(prizeId) < 1)
@@ -154,7 +179,11 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             return winningTicket;
         }
-
+        /// <summary>
+        /// InsertPrizeWinner - create new winner
+        /// </summary>
+        /// <param name="prizeId"></param>
+        /// <param name="attendeeId"></param>
         private void InsertPrizeWinner(int prizeId, int attendeeId)
         {
             _prizeProvider.AddWinner(new Winner
@@ -165,14 +194,22 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             _prizeProvider.Save();
         }
-
+        /// <summary>
+        /// RemovePrizeWinner - Remove winner from prize
+        /// </summary>
+        /// <param name="prizeId">input prize ID</param>
+        /// <param name="attendeeId">input attendee ID</param>
         public void RemovePrizeWinner(int prizeId, int attendeeId)
         {
             _prizeProvider.RemoveWinner(_prizeProvider.GetPrizeWinner(prizeId, attendeeId).First());
 
             _prizeProvider.Save();
         }
-
+        /// <summary>
+        /// GetNumberPrizesAvailableToDraw - 
+        /// </summary>
+        /// <param name="prizeId">input prize ID</param>
+        /// <returns>int, (numOfPrizes - numOfWinner)</returns>
         public int GetNumberPrizesAvailbleToDraw(int prizeId)
         {
             int numberOfWinners = _prizeProvider.GetPrizeWinners(prizeId).Count();
@@ -180,21 +217,33 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             return numberOfPrizes - numberOfWinners;
         }
-
+        /// <summary>
+        /// GetNumberOfEligibleBallots - get number of eligible ballots
+        /// </summary>
+        /// <param name="prizeId">input prize ID</param>
+        /// <returns>int, number of eligible ballots</returns>
         public int GetNumberOfEligibleBallots(int prizeId)
         {
             return GetEligiblePrizeTickets(prizeId).Count - GetNumberPrizesAvailbleToDraw(prizeId);
         }
-
+        /// <summary>
+        /// GetNumberOfPrizesWonByAttenedee - get number of prizes won by attendee
+        /// </summary>
+        /// <param name="attendeeId">input attendee ID</param>
+        /// <returns>int, number of prizes</returns>
         public int GetNumberOfPrizesWonByAttenedee(int attendeeId)
         {
             return _prizeProvider.GetAttendeePrizeWins(attendeeId).Count();
         }
-
+        /// <summary>
+        /// GetEligiblePrizeTickets - get
+        /// </summary>
+        /// <param name="prizeId">Input prize ID</param>
+        /// <returns>IList<PrizeTicket>, of eligible prize ticket</returns>
         public IList<PrizeTicket> GetEligiblePrizeTickets(int prizeId)
         {
             IEnumerable<PrizeTicket> allTickets = GeneratePrizeTickets(prizeId);
-
+            
             IEnumerable<int> inEligibleAttendees = GetAttendeesWithWinsGreaterThan(MaximumIndividualWins);
 
             List<PrizeTicket> eligibleTickets = (from at in allTickets
@@ -203,7 +252,11 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             return eligibleTickets;
         }
-
+        /// <summary>
+        /// GetAttendeesWithWinsGreaterThan - get list of attendees with win greather than
+        /// </summary>
+        /// <param name="winCount">number of win</param>
+        /// <returns>List, of attendees</returns>
         public IList<int> GetAttendeesWithWinsGreaterThan(int winCount)
         {
             IEnumerable<Winner> winningTickets = _prizeProvider.GetPrizeWinners();
@@ -215,12 +268,19 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             return inEligibleAttendees.ToList();
         }
-
+        /// <summary>
+        /// GetPrizeWinner - get all prize winner
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Winner> GetPrizeWinners()
         {
             return _prizeProvider.GetPrizeWinners();
         }
-
+        /// <summary>
+        /// GetPrizeWinners - get prize winner
+        /// </summary>
+        /// <param name="prizeId">Input Prize Id</param>
+        /// <returns>List of winner</returns>
         public IList<Attendee> GetPrizeWinners(int prizeId)
         {
             return _prizeProvider.GetPrizeWinners(prizeId).Select(w => w.Attendee).ToList();
@@ -230,7 +290,11 @@ namespace PrizeDraw.DataLayer.DataAccess
         {
             return _scanProvider.GetScanFor(vendorId, attendeeId) != null;
         }
-
+        /// <summary>
+        /// InsertPrizeScan - create new scan of attendee for vendor
+        /// </summary>
+        /// <param name="vendorId">Input Vendor Id</param>
+        /// <param name="attendeeId">Input Attendee Id</param>
         private void InsertPrizeScan(int vendorId, int attendeeId)
         {
             _scanProvider.Add(new Scan
@@ -241,7 +305,11 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             _scanProvider.Save();
         }
-
+        /// <summary>
+        /// GeneratePrizeTickets - generate prize tickets
+        /// </summary>
+        /// <param name="prizeId">Input prize ID</param>
+        /// <returns>IList of prize tickets</returns>
         private IList<PrizeTicket> GeneratePrizeTickets(int prizeId)
         {
             Prize prize = _prizeProvider.GetPrizeById(prizeId);

@@ -4,6 +4,11 @@ using System.Text;
 
 namespace PrizeDraw.DataLayer.Model
 {
+    /// <summary>
+    /// Winner Class
+    /// used to generate new winner
+    /// @see Winners table
+    /// </summary>
     public class Winner
     {
         public int AttendeeId { get; set; }

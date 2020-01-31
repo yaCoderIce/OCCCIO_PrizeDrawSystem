@@ -1,26 +1,30 @@
-﻿@inject SignInManager<User> SignInManager
+﻿<!-- Manage Site Navigation
+    Set authentication on who can access which menu
+    -->
+<!-- API for sign in-->
+@inject SignInManager<User> SignInManager
 
-<div id="mainMenu" class="text-primary bg-lightgrey">
+<div id="mainMenu" class="bg-lightgreen">
     <ul>
-        <li id="home"><a asp-controller="Home" asp-action="Index">Home</a></li>
-        @if (SignInManager.IsSignedIn(User))
-        {
-            @if (User.IsInRole("Staff") || User.IsInRole("Admin"))
+            <li id="home"><a asp-controller="Home" asp-action="Index" class="txt-menu" >Home</a></li>
+            @if (SignInManager.IsSignedIn(User))
             {
-                <li id="checkIn"><a asp-controller="CheckIn" asp-action="Index">Check In</a></li>
+                @if (User.IsInRole("Staff") || User.IsInRole("Admin"))
+                {
+                    <li id="checkIn"><a asp-controller="CheckIn" asp-action="Index" class="txt-menu">Check In</a></li>
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                    <li id="display"><a asp-controller="Display" asp-action="Index" class="txt-menu">Display</a></li>
+                }
+                @if (User.IsInRole("Vendor") || User.IsInRole("Admin"))
+                {
+                    <li id="vendor"><a asp-controller="Vendor" asp-action="CreateBallot" class="txt-menu">Vendor</a></li>
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                    <li id="manage"><a asp-controller="Manage" asp-action="Index" class="txt-menu">Manage</a></li>
+                }
             }
-            @if (User.IsInRole("Admin"))
-            {
-                <li id="display"><a asp-controller="Display" asp-action="Index">Display</a></li>
-            }
-            @if (User.IsInRole("Vendor") || User.IsInRole("Admin"))
-            {
-                <li id="vendor"><a asp-controller="Vendor" asp-action="CreateBallot">Vendor</a></li>
-            }
-            @if (User.IsInRole("Admin"))
-            {
-                <li id="manage"><a asp-controller="Manage" asp-action="Index">Manage</a></li>
-            }
-        }
         </ul>
 </div>

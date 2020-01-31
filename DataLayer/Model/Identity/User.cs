@@ -3,6 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrizeDraw.DataLayer.Model.Identity
 {
+    /// <summary>
+    /// User Class
+    /// used to generate new user
+    /// @see Users table
+    /// </summary>
     public class User
     {
         public int Id { get; set; }

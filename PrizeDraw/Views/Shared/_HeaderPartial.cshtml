@@ -3,21 +3,21 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-<header id="header" class="row bg-darkgrey">
+<header id="header" class="row bg-white">
     <div class="col-lg-8">
-        <img src="~/img/logo-horizontal.png" />
+        <img src="~/img/DC_FULL_COLOUR.svg"/>
     </div>
     <div id="loginHeader" class="col-lg-4">
         @if (SignInManager.IsSignedIn(User))
         {
-            <a id="loggedInLink" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Logged in as @UserManager.GetUserName(User)</a>
+            <a id="loggedInLink" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"class="txt-secondary" >Logged in as @UserManager.GetUserName(User)</a>
             <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="btn-link">Logout</button>
+                <button id="logout" type="submit" class="txt-secondary btn-link">Logout</button>
             </form>
         }
         else
         {
-            <a id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a id="login" asp-area="Identity" asp-page="/Account/Login" class="txt-secondary">Login</a>
         }
     </div>
 </header>

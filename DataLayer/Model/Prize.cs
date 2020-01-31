@@ -6,6 +6,11 @@ using System.Text;
 
 namespace PrizeDraw.DataLayer.Model
 {
+    /// <summary>
+    /// Prize Class
+    /// used to generate prize
+    /// @see Prizes table
+    /// </summary>
     public class Prize
     {
         [Key]

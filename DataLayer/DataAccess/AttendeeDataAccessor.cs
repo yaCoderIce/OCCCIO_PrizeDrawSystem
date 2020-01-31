@@ -16,22 +16,41 @@ namespace PrizeDraw.DataLayer.DataAccess
         private static readonly Random _randomGenerator = new Random();
 
         public IList<ValidationResult> ValidationResults { get; private set; }
-
+        /// <summary>
+        /// Create new AttendeeProvider
+        /// </summary>
+        /// <param name="context"></param>
         public AttendeeDataAccessor(PrizeDrawDatabaseContext context)
         {
             _attendeeProvider = new AttendeeProvider(context);
         }
 
+        public AttendeeDataAccessor()
+        {
+        }
+        /// <summary>
+        /// get attendee by id
+        /// </summary>
+        /// <param name="id">attendee id</param>
+        /// <returns>attendee</returns>
         public Attendee Get(int id)
         {
             return _attendeeProvider.Get(id).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Get list of attendees
+        /// </summary>
+        /// <returns>list, of attendees</returns>
         public IList<Attendee> Get()
         {
             return _attendeeProvider.Get().ToList();
         }
 
+        /// <summary>
+        /// Create new attendee
+        /// </summary>
+        /// <param name="attendee">attende</param>
         public void Insert(Attendee attendee)
         {
             attendee.Id = GenerateUniqueAttendeeId();
@@ -40,22 +59,36 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             _attendeeProvider.Save();
         }
-
+        /// <summary>
+        ///  Get number of attendees
+        /// </summary>
+        /// <returns>int, number of attendees</returns>
         public int GetNumberOfAttendees()
         {
             return _attendeeProvider.Get().Count();
         }
-
+        /// <summary>
+        /// Get number of check in attendees
+        /// </summary>
+        /// <returns>int, number of checked in</returns>
         public int GetNumberOfCheckedInAttendees()
         {
             return _attendeeProvider.Get().Count(a => a.IsCheckedIn);
         }
-
+        /// <summary>
+        /// Check if attendee exist in database
+        /// </summary>
+        /// <param name="id">attendee id</param>
+        /// <returns>true or false</returns>
         public bool AttendeeExists(int id)
         {
             return _attendeeProvider.AttendeeExists(id);
         }
-
+        /// <summary>
+        /// Check In Attendee, set the IsCheckedIn attribute to true
+        /// </summary>
+        /// <param name="id">attendee id</param>
+        /// <returns>attendee</returns>
         public Attendee CheckInAttendee(int id)
         {
             Attendee attendee = Get(id);
@@ -67,7 +100,11 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             return attendee;
         }
-
+        /// <summary>
+        /// Check if attendee is checked in
+        /// </summary>
+        /// <param name="id">attendee id</param>
+        /// <returns>true or false</returns>
         public bool IsAttendeeCheckedIn(int id)
         {
             return Get(id).IsCheckedIn;
@@ -76,7 +113,7 @@ namespace PrizeDraw.DataLayer.DataAccess
         /// <summary>
         /// Updates attendee data. This does not update checked in status or checked in time
         /// </summary>
-        /// <param name="attendee"></param>
+        /// <param name="attendee">attendee</param>
         public void Update(Attendee attendee)
         {
             Attendee oldAttendee = _attendeeProvider.Get(attendee.Id).First();
@@ -94,7 +131,11 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             _attendeeProvider.Save();
         }
-
+        /// <summary>
+        /// Import from file to database
+        /// </summary>
+        /// <param name="fileStream">csv file</param>
+        /// <returns>int, number of imported attendee</returns>
         public int ImportFromFile(Stream fileStream)
         {
             int numberImported = 0;
@@ -134,6 +175,11 @@ namespace PrizeDraw.DataLayer.DataAccess
             return numberImported;
         }
 
+        /// <summary>
+        /// Create attendee from csv file
+        /// </summary>
+        /// <param name="csvReader">csv file</param>
+        /// <returns>new attendee</returns>
         private Attendee CreateAttendeeFromCsv(CsvReader csvReader)
         {
             return new Attendee
@@ -147,7 +193,11 @@ namespace PrizeDraw.DataLayer.DataAccess
                 JobTitle = csvReader["Job Title"]
             };
         }
-
+        /// <summary>
+        /// Get number of attendee scanned by vendor
+        /// </summary>
+        /// <param name="vendorId">vendor id</param>
+        /// <returns>int, number of attendee scanned by vendor</returns>
         public int GetNumberOfAttendeesScannedBy(int vendorId)
         {
             return _attendeeProvider.GetAttendeesScannedBy(vendorId).Count();

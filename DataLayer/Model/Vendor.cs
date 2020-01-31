@@ -4,6 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrizeDraw.DataLayer.Model
 { 
+    /// <summary>
+    /// Vendor Class
+    /// Used to generate new vendor
+    /// @see Vendors table
+    /// </summary>
     public class Vendor
     {
         public int Id { get; set; }

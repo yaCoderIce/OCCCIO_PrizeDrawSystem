@@ -22,6 +22,8 @@ namespace PrizeDraw.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
+        //GET: Display
+        //@see Views/Display/index.cstml
         public IActionResult Index()
         {
             return View(DisplayIndexViewModel.From(_prizeDataAccessor.Get()));
@@ -29,6 +31,9 @@ namespace PrizeDraw.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
+        //GET: Display
+        //Display the information about the prize 
+        //@see View/Display/Details/#
         public IActionResult Details(int? id)
         {
             if (!id.HasValue)

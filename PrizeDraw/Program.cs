@@ -14,10 +14,18 @@ namespace PrizeDraw
     {
         public static void Main(string[] args)
         {
+            //Call CreateWebHostBuilder()
             CreateWebHostBuilder(args).Build().Run();
         }
-
+        /// <summary>
+        /// Create IWebHostBuilder Interface
+        /// (
+        /// </summary>
+        /// <param name="args">Command Line Argument</param>
+        /// <returns></returns>
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            // Creating IWebHost with pre-configured defaults, and specify Startup as the type
+            // @see Startup.cs
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
     }

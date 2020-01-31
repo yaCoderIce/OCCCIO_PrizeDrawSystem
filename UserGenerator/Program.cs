@@ -1,16 +1,27 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Spire.Doc;
+using PrizeDraw.DataLayer;
+using PrizeDraw.DataLayer.DataAccess;
+using PrizeDraw.DataLayer.Model;
+using PrizeDraw.DataLayer.Providers;
+using PrizeDraw.Models;
 
 namespace PrizeDrawTool
 {
     class Program
     {
+
+        private static AttendeeDataAccessor _attendeeAccessor;
+        
         static void Main(string[] args)
         {
             try
             {
+                // To Change Command Line, right click on project -> Debug -> Application arguments:
                 ProcessCommandLineArgs(args);
             }
             catch(Exception ex)
@@ -33,10 +44,12 @@ namespace PrizeDrawTool
         {
             if(args.Length == 0)
             {
+                //Print Error Message
                 PrintInvalidCommandLineUsageToConsole();
             }
-            else if(args[0] == "u" || args[0] == "p")
+            else if(args[0] == "u" || args[0] == "p" || args[0] == "b")
             {
+                // 2 is the minimum because of thats shortest possible directory eg C:
                 if(args.Length != 2)
                 {
                     Console.WriteLine("Invalid filepath");
@@ -44,6 +57,10 @@ namespace PrizeDrawTool
                 else if(args[0] == "p")
                 {
                     GenerateUsersAccounts(args[1], true);
+                }
+                else if (args[0] == "b")
+                {
+                    MailMerge();
                 }
                 else
                 {
@@ -55,7 +72,9 @@ namespace PrizeDrawTool
                 PrintInvalidCommandLineUsageToConsole();
             }
         }
-
+        /// <summary>
+        /// PrintInvalidCommandLineUsageToConsole - 
+        /// </summary>
         private static void PrintInvalidCommandLineUsageToConsole()
         {
             Console.WriteLine("Invalid command line arguments");
@@ -122,5 +141,26 @@ namespace PrizeDrawTool
 
             return configuration.GetConnectionString(connectionStringName);
         }
+
+        private static void MailMerge()
+        {
+            Document document = new Document();
+            
+            document.LoadFromFile("../../../LetterFormatting.doc", FileFormat.Doc);
+            string[] fieldNames = { "FirstName","LastName", "Company", "JobTitle", "Id", "Id" };
+            string[] fieldValues = { "Abdellah El", "Bilali", "Algonquin College", "Enterprise Business Platforms", "931854203", "931854203" };
+
+            //Console.WriteLine(_attendeeAccessor.Get());
+
+            IList<Attendee> attendees = _attendeeAccessor.Get();
+
+            document.MailMerge.Execute(attendees);
+
+            document.SaveToFile("../../../Result.docx", FileFormat.Docx);
+            document.Close();
+            //System.Diagnostics.Process.Start("../.../../Result.docx");
+            
+        }
+
     }
 }

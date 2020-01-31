@@ -11,6 +11,7 @@ namespace PrizeDraw.Controllers
 {
     public class HomeController : Controller
     {
+        //GET: Views/Home/Index.cshtml
         public IActionResult Index()
         {
             return View();

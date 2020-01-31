@@ -13,6 +13,9 @@ using PrizeDraw.DataLayer.Model.Identity;
 
 namespace PrizeDraw.Areas.Identity.Pages.Account
 {
+    /// <summary>
+    /// Manage user sign in
+    /// </summary>
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
@@ -47,7 +50,11 @@ namespace PrizeDraw.Areas.Identity.Pages.Account
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
         }
-
+        /// <summary>
+        /// _GET, run during page request
+        /// </summary>
+        /// <param name="returnUrl">current url</param>
+        /// <returns>current url</returns>
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -64,7 +71,13 @@ namespace PrizeDraw.Areas.Identity.Pages.Account
 
             ReturnUrl = returnUrl;
         }
-
+        /// <summary>
+        /// _POST, after user click login button
+        /// validate if the user exist in the database
+        /// if it is change the role
+        /// </summary>
+        /// <param name="returnUrl">current url</param>
+        /// <returns>logged </returns>
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -74,13 +87,16 @@ namespace PrizeDraw.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                // valid user
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
+                // invalid user
                 else
                 {
+                    // Display invalid login attempt on login page
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
