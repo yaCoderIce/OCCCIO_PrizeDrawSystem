@@ -47,3 +47,22 @@ C:\Users\s00732221\Desktop\OCCCIO_PrizeDrawSystem-master\OCCCIO_PrizeDrawSystem-
 C:\Users\s00732221\Desktop\OCCCIO_PrizeDrawSystem-master\OCCCIO_PrizeDrawSystem-master\UserGenerator\bin\Debug\netcoreapp2.2\PrizeDraw.Views.pdb
 C:\Users\s00732221\Desktop\OCCCIO_PrizeDrawSystem-master\OCCCIO_PrizeDrawSystem-master\UserGenerator\bin\Debug\netcoreapp2.2\PrizeDraw.dll
 C:\Users\s00732221\Desktop\OCCCIO_PrizeDrawSystem-master\OCCCIO_PrizeDrawSystem-master\UserGenerator\bin\Debug\netcoreapp2.2\PrizeDraw.pdb
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\bin\Debug\netcoreapp2.2\PrizeDraw.Views.dll
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\bin\Debug\netcoreapp2.2\PrizeDraw.Views.pdb
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\bin\Debug\netcoreapp2.2\PrizeDrawTool.deps.json
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\bin\Debug\netcoreapp2.2\PrizeDrawTool.runtimeconfig.json
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\bin\Debug\netcoreapp2.2\PrizeDrawTool.runtimeconfig.dev.json
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\bin\Debug\netcoreapp2.2\PrizeDrawTool.dll
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\bin\Debug\netcoreapp2.2\PrizeDrawTool.pdb
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\bin\Debug\netcoreapp2.2\DataLayer.dll
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\bin\Debug\netcoreapp2.2\PrizeDraw.dll
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\bin\Debug\netcoreapp2.2\DataLayer.pdb
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\bin\Debug\netcoreapp2.2\PrizeDraw.pdb
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\obj\Debug\netcoreapp2.2\PrizeDrawTool.csprojAssemblyReference.cache
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\obj\Debug\netcoreapp2.2\PrizeDrawTool.csproj.CoreCompileInputs.cache
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\obj\Debug\netcoreapp2.2\PrizeDrawTool.AssemblyInfoInputs.cache
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\obj\Debug\netcoreapp2.2\PrizeDrawTool.AssemblyInfo.cs
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\obj\Debug\netcoreapp2.2\PrizeDrawTool.csproj.CopyComplete
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\obj\Debug\netcoreapp2.2\PrizeDrawTool.dll
+C:\Users\s00732221\Desktop\Project Repo\UserGenerator\obj\Debug\netcoreapp2.2\PrizeDrawTool.pdb

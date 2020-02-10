@@ -24,10 +24,7 @@ namespace PrizeDraw.DataLayer.DataAccess
         {
             _attendeeProvider = new AttendeeProvider(context);
         }
-
-        public AttendeeDataAccessor()
-        {
-        }
+        
         /// <summary>
         /// get attendee by id
         /// </summary>

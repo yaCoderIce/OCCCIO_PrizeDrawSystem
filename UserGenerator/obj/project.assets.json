@@ -8166,11 +8166,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\UserGenerator\\PrizeDrawTool.csproj",
+      "projectUniqueName": "C:\\Users\\s00732221\\Desktop\\Project Repo\\UserGenerator\\PrizeDrawTool.csproj",
       "projectName": "PrizeDrawTool",
-      "projectPath": "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\UserGenerator\\PrizeDrawTool.csproj",
+      "projectPath": "C:\\Users\\s00732221\\Desktop\\Project Repo\\UserGenerator\\PrizeDrawTool.csproj",
       "packagesPath": "C:\\Users\\s00732221\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\UserGenerator\\obj\\",
+      "outputPath": "C:\\Users\\s00732221\\Desktop\\Project Repo\\UserGenerator\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -8189,11 +8189,11 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\DataLayer\\DataLayer.csproj": {
-              "projectPath": "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\DataLayer\\DataLayer.csproj"
+            "C:\\Users\\s00732221\\Desktop\\Project Repo\\DataLayer\\DataLayer.csproj": {
+              "projectPath": "C:\\Users\\s00732221\\Desktop\\Project Repo\\DataLayer\\DataLayer.csproj"
             },
-            "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\PrizeDraw\\PrizeDraw.csproj": {
-              "projectPath": "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\PrizeDraw\\PrizeDraw.csproj"
+            "C:\\Users\\s00732221\\Desktop\\Project Repo\\PrizeDraw\\PrizeDraw.csproj": {
+              "projectPath": "C:\\Users\\s00732221\\Desktop\\Project Repo\\PrizeDraw\\PrizeDraw.csproj"
             }
           }
         }

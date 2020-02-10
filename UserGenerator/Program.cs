@@ -9,13 +9,14 @@ using PrizeDraw.DataLayer.DataAccess;
 using PrizeDraw.DataLayer.Model;
 using PrizeDraw.DataLayer.Providers;
 using PrizeDraw.Models;
+using System.Linq;
 
 namespace PrizeDrawTool
 {
     class Program
     {
 
-        private static AttendeeDataAccessor _attendeeAccessor;
+        
         
         static void Main(string[] args)
         {
@@ -144,22 +145,130 @@ namespace PrizeDrawTool
 
         private static void MailMerge()
         {
+            string connectionString = "Server=localhost\\SQLEXPRESS;Database=PrizeDrawDev;User ID=sqlDev;Password=sqlDev;";
+            AttendeeDataAccessor _attendeeAccessor = new AttendeeDataAccessor(new PrizeDrawDatabaseContext(connectionString));
+            VendorDataAccessor _vendorAccessor = new VendorDataAccessor(new PrizeDrawDatabaseContext(connectionString));
+
             Document document = new Document();
             
-            document.LoadFromFile("../../../LetterFormatting.doc", FileFormat.Doc);
-            string[] fieldNames = { "FirstName","LastName", "Company", "JobTitle", "Id", "Id" };
-            string[] fieldValues = { "Abdellah El", "Bilali", "Algonquin College", "Enterprise Business Platforms", "931854203", "931854203" };
+            //string[] fieldNames = { "FirstName","LastName", "Company", "JobTitle", "Id", "Id" };
+            //string[] fieldValues = { "Abdellah El", "Bilali", "Algonquin College", "Enterprise Business Platforms", "931854203", "931854203" };
 
-            //Console.WriteLine(_attendeeAccessor.Get());
+            string[] collegeName = { "durhamCollege", "algonquinCollege", "cambrianCollege", "canadoreCollege", "centennialCollege", "collegeBoreal",
+                "conestogaCollege","confederationCollege","fanshaweCollege","georgeBrownCollege","georgianCollege","humberCollege","laCite","lambtonCollege",
+                    "loyalistCollege","mohawkCollege","niagaraCollege","northernCollege","saultCollege","senecaCollege","sheridanCollege","sirSandfordFlemingCollege",
+                        "stClairCollege","stLawrenceCollege"};
 
+            //Get all attendee from database
             IList<Attendee> attendees = _attendeeAccessor.Get();
+            IList<Vendor> vendors = _vendorAccessor.Get();
+            
+            //List<Attendee>
+            
+            //Split attendees to multiple record based on company
+            //Can be dangerous since the company should exactly matched
+            List<List<Attendee>> listOfList = attendees.GroupBy(a => a.Company)
+                                             .Select(group => group.ToList())
+                                             .ToList();
 
+
+            /*
+             * to be removed
+            foreach(List<Attendee> perCollege in listOfList)
+            {
+                //show which company exist
+                Console.WriteLine(perCollege[perCollege.Count-1].Company);
+                try
+                {
+
+                    document.LoadFromFile("../../../LetterFormatting_" + perCollege[perCollege.Count - 1].Company + ".doc", FileFormat.Doc);
+                    document.MailMerge.Execute(perCollege);
+                    document.SaveToFile("../../../Result_" + perCollege[perCollege.Count - 1].Company + ".docx", FileFormat.Docx);
+                    document.Close();
+                }catch(Exception ex) //if the template doesnt exist
+                {
+                    Console.Write(ex);
+                }
+            }*/
+            //Console.ReadKey();
+            List<Attendee> staff = new List<Attendee>();
+            List<Attendee> other = new List<Attendee>();
+            List<Attendee> vendor = new List<Attendee>();
+
+            bool isVendor = false;
+
+            foreach (Attendee attendee in attendees)
+            {
+                int MAX_LENGTH = 22;
+                if ((attendee.FirstName.Length + attendee.LastName.Length) >= MAX_LENGTH)
+                {
+                    attendee.LastName = attendee.LastName.Substring(0, 1) + ".";
+                    if(attendee.FirstName.Length >= MAX_LENGTH)
+                    {
+                        // if first name larger than 25
+                        attendee.FirstName = attendee.FirstName.Substring(0, MAX_LENGTH);
+                        attendee.LastName = null;
+                    }
+                }
+
+                foreach(Vendor potentialVendor in vendors)
+                {
+                    if (attendee.Company == potentialVendor.Name)
+                    {
+                        vendor.Add(attendee);
+                        isVendor = true;
+                    }
+                }
+
+                if (attendee.Company == "Durham")
+                {
+                    staff.Add(attendee);
+                }
+                else if(isVendor==false)
+                {
+                    other.Add(attendee);
+                }
+                isVendor = false;
+                /*try
+                {
+                    Vendor isVendors = _vendorAccessor.Get(attendee.Id);
+                    vendor.Add(attendee);
+                }
+                catch (Exception ex) // if failed meaning its not a vendor
+                {
+                    if (attendee.Company == "Durham")
+                    {
+                        staff.Add(attendee);
+                    }
+                    else
+                    {
+                        other.Add(attendee);
+                    }
+                }*/
+                
+            }
+            document.LoadFromFile("../../../LetterFormatting_Durham.doc", FileFormat.Doc);
+            document.MailMerge.Execute(other);
+            document.SaveToFile("../../../Result_Other.docx", FileFormat.Docx);
+            document.Close();
+
+            document.LoadFromFile("../../../LetterFormatting_Staff.doc", FileFormat.Doc);
+            document.MailMerge.Execute(staff);
+            document.SaveToFile("../../../Result_Staff.docx", FileFormat.Docx);
+            document.Close();
+
+            document.LoadFromFile("../../../LetterFormatting_Vendor.doc", FileFormat.Doc);
+            document.MailMerge.Execute(vendor);
+            document.SaveToFile("../../../Result_Vendor.docx", FileFormat.Docx);
+            document.Close();
+
+            document.LoadFromFile("../../../LetterFormatting.doc", FileFormat.Doc);
             document.MailMerge.Execute(attendees);
-
             document.SaveToFile("../../../Result.docx", FileFormat.Docx);
             document.Close();
-            //System.Diagnostics.Process.Start("../.../../Result.docx");
             
+            //System.Diagnostics.Process.Start("../.../../Result.docx");
+
         }
 
     }

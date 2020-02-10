@@ -13279,11 +13279,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\PrizeDraw\\PrizeDraw.csproj",
+      "projectUniqueName": "C:\\Users\\s00732221\\Desktop\\Project Repo\\PrizeDraw\\PrizeDraw.csproj",
       "projectName": "PrizeDraw",
-      "projectPath": "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\PrizeDraw\\PrizeDraw.csproj",
+      "projectPath": "C:\\Users\\s00732221\\Desktop\\Project Repo\\PrizeDraw\\PrizeDraw.csproj",
       "packagesPath": "C:\\Users\\s00732221\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\PrizeDraw\\obj\\",
+      "outputPath": "C:\\Users\\s00732221\\Desktop\\Project Repo\\PrizeDraw\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13302,8 +13302,8 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\DataLayer\\DataLayer.csproj": {
-              "projectPath": "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\DataLayer\\DataLayer.csproj"
+            "C:\\Users\\s00732221\\Desktop\\Project Repo\\DataLayer\\DataLayer.csproj": {
+              "projectPath": "C:\\Users\\s00732221\\Desktop\\Project Repo\\DataLayer\\DataLayer.csproj"
             }
           }
         }

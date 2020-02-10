@@ -3584,11 +3584,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\DataLayer\\DataLayer.csproj",
+      "projectUniqueName": "C:\\Users\\s00732221\\Desktop\\Project Repo\\DataLayer\\DataLayer.csproj",
       "projectName": "DataLayer",
-      "projectPath": "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\DataLayer\\DataLayer.csproj",
+      "projectPath": "C:\\Users\\s00732221\\Desktop\\Project Repo\\DataLayer\\DataLayer.csproj",
       "packagesPath": "C:\\Users\\s00732221\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\s00732221\\Desktop\\OCCCIO_PrizeDrawSystem-master\\OCCCIO_PrizeDrawSystem-master\\DataLayer\\obj\\",
+      "outputPath": "C:\\Users\\s00732221\\Desktop\\Project Repo\\DataLayer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

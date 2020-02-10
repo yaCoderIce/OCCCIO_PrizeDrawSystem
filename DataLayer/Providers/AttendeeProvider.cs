@@ -28,6 +28,17 @@ namespace PrizeDraw.DataLayer.Providers
                     select a);
         }
         /// <summary>
+        /// Get - get attendee by id
+        /// </summary>
+        /// <param name="id">input attendee id</param>
+        /// <returns>attendee of the id</returns>
+        public IQueryable<Attendee> GetByCompany(string company)
+        {
+            return (from a in DatabaseContext.Attendees
+                    where a.Company == company
+                    select a);
+        }
+        /// <summary>
         /// Get - get all attendee
         /// </summary>
         /// <returns>all attendee</returns>
