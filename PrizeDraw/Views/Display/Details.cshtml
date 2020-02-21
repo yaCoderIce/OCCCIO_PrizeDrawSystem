@@ -53,6 +53,7 @@
                      </li>
                  }
              </ul>
+             <p id='text-instruction'>Press enter to generate...</p>
          }
          else
          {
@@ -68,15 +69,17 @@
         $(document).ready(function () {
             showHideSpinner(true);
         });
-
-        document.addEventListener("keyup", function (event) {
+        //event for enter clicked
+        document.addEventListener("keydown", function (event) {
             if (event.keyCode === 13) {
+                $('#text-instruction').hide();
+
                 event.preventDefault();
 
                 drawWinner();
             }
         });
-
+        //Display loading animation
         function showHideSpinner(hidden) {
             if (hidden) {
                 $('#winnerSpinner').hide();
@@ -84,8 +87,7 @@
                 $('#winnerSpinner').show();
             }
         }
-
-
+        //Generate Winner
         function drawWinner() {
             if (numberOfAvailablePrizes > 0) {
                 numberOfAvailablePrizes--;
@@ -109,19 +111,19 @@
                 });
             }
         }
-
+        //Update number of prize display
         function updateNumberOfPrizesDisplay() {
             $('#numberOfPrizes').html(numberOfAvailablePrizes);
         }
-
+        //Display Winner
         function showWinner(winnerObj) {
             $('#winnerList').prepend("<li class='winnerName'><span class='h1'>" + winnerObj.name + "</span>" +
                 "<a class='btn' href='#' onclick='redrawPrizeWinner(this," + winnerObj.attendeeId + ")'> X</a><br /><span class='h4'>" +
                 winnerObj.organizationName + "</span></li>").fadeIn();
         }
-
+        //Redraw Winner
         function redrawPrizeWinner(listElement, attendeeId) {
-            // Gaurd to prevent double tapping button
+            // Guard to prevent double tapping button
             if (allowRedraw) {
                 allowRedraw = false;
 

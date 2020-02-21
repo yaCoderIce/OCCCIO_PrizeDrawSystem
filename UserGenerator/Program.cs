@@ -22,8 +22,9 @@ namespace PrizeDrawTool
                 // To Change Command Line, right click on project -> Debug -> Application arguments:
                 ProcessCommandLineArgs(args);
             }
-            catch(Exception ex)
+            catch(Exception ex)// Catch General Exception
             {               
+                //Display Error message
                 if(ex.InnerException != null)
                 {
                     Console.WriteLine("\n" + ex.InnerException.Message);
@@ -124,7 +125,10 @@ namespace PrizeDrawTool
             // Ensures any exceptions raised in the background thread gets thrown
             workerTask.Wait();
         }     
-
+        /// <summary>
+        /// GetConfiguration, get configuration from json file
+        /// </summary>
+        /// <returns>IConfigurationRoot</returns>
         private static IConfigurationRoot GetConfiguration()
         {
             IConfigurationBuilder builder = new ConfigurationBuilder()
@@ -158,7 +162,7 @@ namespace PrizeDrawTool
              * 
              * 
              * Note:
-             * After careful consideration, this year Durham College will only using 3 template (Attendee, Staff, Vendor)
+             * After careful consideration, this year Durham College will only be using 3 templates (Attendee, Staff, Vendor)
              * due to security concern, three kind of name badge will be easily recognizable for security rather than ~40.
              * 
              */
@@ -183,21 +187,21 @@ namespace PrizeDrawTool
             IList<Attendee> attendees = _attendeeAccessor.Get();
             IList<Vendor> vendors = _vendorAccessor.Get();
             
-            //Split attendees to multiple record based on company
-            //Can be dangerous since the company should exactly matched
+            ////Split attendees to multiple record based on company
+            ////Can be dangerous since the company should exactly matched
+            ////Using LINQ
             //List<List<Attendee>> listOfList = attendees.GroupBy(a => a.Company)
             //                                 .Select(group => group.ToList())
             //                                 .ToList();
             //
-            // This part of code is to mail merge every company/college with the letterformating
-            // eg for DurhamCollege it will look for LetterFormatting_DurhamCollege.docx
+            //// This part of code is to mail merge every company/college with the letterformating
+            //// eg for DurhamCollege it will look for LetterFormatting_DurhamCollege.docx
             //foreach(List<Attendee> perCollege in listOfList)
             //{
             //    //show which company exist
             //    Console.WriteLine(perCollege[perCollege.Count-1].Company);
             //    try
             //    {
-
             //        document.LoadFromFile("../../../LetterFormatting_" + perCollege[perCollege.Count - 1].Company + ".doc", FileFormat.Doc);
             //        document.MailMerge.Execute(perCollege);
             //        document.SaveToFile("../../../Result_" + perCollege[perCollege.Count - 1].Company + ".docx", FileFormat.Docx);
@@ -264,51 +268,28 @@ namespace PrizeDrawTool
                     //Console.WriteLine((attendee.FirstName.Length + attendee.LastName.Length) + ", " + attendee.Id + ":" + attendee.FirstName + "" + attendee.LastName);
                 }
                 isVendor = false;
-
-                /*try
-                {
-                    Vendor isVendors = _vendorAccessor.Get(attendee.Id);
-                    vendor.Add(attendee);
-                }
-                catch (Exception ex) // if failed meaning its not a vendor
-                {
-                    if (attendee.Company == "Durham")
-                    {
-                        staff.Add(attendee);
-                    }
-                    else
-                    {
-                        other.Add(attendee);
-                    }
-                }*/
-                
             }
 
             //Performing mail merge
-
-            document.LoadFromFile("../../../LetterFormatting_Durham.doc", FileFormat.Doc);
+            document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Durham.doc", FileFormat.Doc);
             document.MailMerge.Execute(other);
-            document.SaveToFile("../../../Result_Other.docx", FileFormat.Docx);
+            document.SaveToFile("../../../Result/Result_Other.docx", FileFormat.Docx);
             document.Close();
 
-            document.LoadFromFile("../../../LetterFormatting_Staff.doc", FileFormat.Doc);
+            document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Staff.doc", FileFormat.Doc);
             document.MailMerge.Execute(staff);
-            document.SaveToFile("../../../Result_Staff.docx", FileFormat.Docx);
+            document.SaveToFile("../../../Result/Result_Staff.docx", FileFormat.Docx);
             document.Close();
 
-            document.LoadFromFile("../../../LetterFormatting_Vendor.doc", FileFormat.Doc);
+            document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Vendor.doc", FileFormat.Doc);
             document.MailMerge.Execute(vendor);
-            document.SaveToFile("../../../Result_Vendor.docx", FileFormat.Docx);
+            document.SaveToFile("../../../Result/Result_Vendor.docx", FileFormat.Docx);
             document.Close();
 
-            document.LoadFromFile("../../../LetterFormatting.doc", FileFormat.Doc);
+            document.LoadFromFile("../../../LetterFormatting/LetterFormatting.doc", FileFormat.Doc);
             document.MailMerge.Execute(attendees);
-            document.SaveToFile("../../../Result.docx", FileFormat.Docx);
+            document.SaveToFile("../../../Result/Result.docx", FileFormat.Docx);
             document.Close();
-            
-            //System.Diagnostics.Process.Start("../.../../Result.docx");
-
         }
-
     }
 }
