@@ -216,7 +216,7 @@ namespace PrizeDraw.DataLayer.DataAccess
             {
                 id = _randomGenerator.Next(minVal, maxVal);
 
-                // Safe gaurd from an infinite loop. This should never happen but if the data gets
+                // Safe guard from an infinite loop. This should never happen but if the data gets
                 // suffiently saturated it could..
                 if (++attempts >= cutOffPoint)
                 {

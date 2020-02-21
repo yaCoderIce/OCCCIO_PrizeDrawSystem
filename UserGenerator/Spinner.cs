@@ -7,6 +7,9 @@ namespace PrizeDrawTool
 {
     public class Spinner
     {
+        /// <summary>
+        /// Mimic Loading Icon
+        /// </summary>
         private static char[] spinner = { '|', '/', '-', '\\' };
 
         private int _index = 0;

@@ -11,16 +11,26 @@ using PrizeDraw.DataLayer.Model;
 
 namespace PrizeDrawTool
 {
+    /// <summary>
+    /// For hashing, refer to https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/Auth/PasswordHasher.cs
+    /// </summary>
     internal class UserGenerator
     {
+        // Connection string to database
         private string ConnectionString { get; set; }
 
+        // List of user and password
         private IList<(User, string)> UserPasswords { get; set; } = new List<(User, string)>();
 
+        // Hashing Algorithm
         private static RNGCryptoServiceProvider _rngCrypto = new RNGCryptoServiceProvider();
 
         public UserGenerator(string connectionString) => ConnectionString = connectionString;
 
+        /// <summary>
+        /// GenerateUsersForVendors - Generate user for vendor
+        /// </summary>
+        /// <returns></returns>
         public async Task GenerateUsersForVendors()
         {
             RoleProvider roleProvider = new RoleProvider(ConnectionString);
@@ -32,7 +42,7 @@ namespace PrizeDrawTool
             foreach (Vendor vendor in vendorProvider.GetVendors().ToList())
             {
                 string vendorUserName = VendorNameToUserName(vendor.Name);
-
+                // Check if the vendor user already exist, if not create new user
                 User user = userProvider.GetUserBy(vendorUserName);
                 if (user == null)
                 {
@@ -47,7 +57,7 @@ namespace PrizeDrawTool
                     userProvider.Add(user);
                     await userProvider.SaveAsync();
                 }
-
+                //Check the user vendor role, if not assign the role
                 if (!roleProvider.UserIsInRole(vendorRole.Id, user.Id))
                 {
                     // Add to vendor role
@@ -66,8 +76,7 @@ namespace PrizeDrawTool
         public async Task GenerateUserPasswords()
         {
             UserProvider provider = new UserProvider(ConnectionString);
-
-
+            
             foreach (User user in provider.GetUsers())
             {
                 //TODO Dirty code. exclude this at the DB level to get rid of the if statement. 
@@ -87,7 +96,10 @@ namespace PrizeDrawTool
 
             await provider.SaveAsync();
         }
-
+        /// <summary>
+        /// CreatePasswordForUser - create password for user
+        /// </summary>
+        /// <param name="user">user</param>
         private void CreatePasswordForUser(User user)
         {
             // eight character password is good enough for what we're doing.
@@ -108,6 +120,11 @@ namespace PrizeDrawTool
             return (userName.Length > 10) ? userName.Substring(0, 10) : userName;
         }
 
+        /// <summary>
+        /// GenerateRandomString - generate randomize string
+        /// </summary>
+        /// <param name="length">lenght of the string</param>
+        /// <returns>random string</returns>
         private string GenerateRandomString(int length)
         {
             char[] chars = new char[length];
