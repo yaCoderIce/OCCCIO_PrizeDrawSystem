@@ -24,13 +24,14 @@
             </td>
             <td>@prize.Name</td>
             <td>
-                @if (string.IsNullOrWhiteSpace(prize.SponsorName))
+                @if (!string.IsNullOrWhiteSpace(prize.SponsorName))
                 {
+                    // Check If there is a sponsor
                     @prize.SponsorName;
                 }
                 else
                 {
-                    <span>N/A</span>
+                    <span>General Prize</span>
                 }
             </td>
             <td>@prize.NumberAvailable</td>

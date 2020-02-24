@@ -53,7 +53,11 @@
                      </li>
                  }
              </ul>
-             <p id='text-instruction'>Press enter to generate...</p>
+             // Check if winner hasn't been drawn
+             @if (Model.Winners.Count() == 0)
+             {
+                 <p id='text-instruction'>Press enter to generate...</p>
+             }
          }
          else
          {
@@ -68,6 +72,7 @@
 
         $(document).ready(function () {
             showHideSpinner(true);
+            $('#text-instruction').show();
         });
         //event for enter clicked
         document.addEventListener("keydown", function (event) {

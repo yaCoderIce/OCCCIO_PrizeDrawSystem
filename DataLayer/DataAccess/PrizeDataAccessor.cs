@@ -115,7 +115,6 @@ namespace PrizeDraw.DataLayer.DataAccess
         {
             return _prizeProvider.GetNumberOfUnwonPrizes();
         }
-
         /// <summary>
         /// DrawPrizeWinners - Draws winners for all instances of of a prize
         /// </summary>
