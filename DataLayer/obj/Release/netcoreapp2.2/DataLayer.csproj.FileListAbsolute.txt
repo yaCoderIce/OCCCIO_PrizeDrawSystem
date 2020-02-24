@@ -7,3 +7,12 @@ C:\Users\100732221\Desktop\OCCCIO_PrizeDrawSystem-master\OCCCIO_PrizeDrawSystem-
 C:\Users\100732221\Desktop\OCCCIO_PrizeDrawSystem-master\OCCCIO_PrizeDrawSystem-master\DataLayer\obj\Release\netcoreapp2.2\DataLayer.AssemblyInfo.cs
 C:\Users\100732221\Desktop\OCCCIO_PrizeDrawSystem-master\OCCCIO_PrizeDrawSystem-master\DataLayer\obj\Release\netcoreapp2.2\DataLayer.dll
 C:\Users\100732221\Desktop\OCCCIO_PrizeDrawSystem-master\OCCCIO_PrizeDrawSystem-master\DataLayer\obj\Release\netcoreapp2.2\DataLayer.pdb
+C:\Users\s00732221\Desktop\Project Repo\DataLayer\bin\Release\netcoreapp2.2\DataLayer.deps.json
+C:\Users\s00732221\Desktop\Project Repo\DataLayer\bin\Release\netcoreapp2.2\DataLayer.dll
+C:\Users\s00732221\Desktop\Project Repo\DataLayer\bin\Release\netcoreapp2.2\DataLayer.pdb
+C:\Users\s00732221\Desktop\Project Repo\DataLayer\obj\Release\netcoreapp2.2\DataLayer.csprojAssemblyReference.cache
+C:\Users\s00732221\Desktop\Project Repo\DataLayer\obj\Release\netcoreapp2.2\DataLayer.csproj.CoreCompileInputs.cache
+C:\Users\s00732221\Desktop\Project Repo\DataLayer\obj\Release\netcoreapp2.2\DataLayer.AssemblyInfoInputs.cache
+C:\Users\s00732221\Desktop\Project Repo\DataLayer\obj\Release\netcoreapp2.2\DataLayer.AssemblyInfo.cs
+C:\Users\s00732221\Desktop\Project Repo\DataLayer\obj\Release\netcoreapp2.2\DataLayer.dll
+C:\Users\s00732221\Desktop\Project Repo\DataLayer\obj\Release\netcoreapp2.2\DataLayer.pdb

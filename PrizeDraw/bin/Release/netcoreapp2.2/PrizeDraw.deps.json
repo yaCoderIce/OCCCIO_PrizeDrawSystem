@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "3a26001b2bb4ba40f7aa587ced012aa7f9cf505c"
+    "signature": "a1d03a9cff67212c8a890e0337ad453a51d46c7f"
   },
   "compilationOptions": {
     "defines": [
@@ -26,10 +26,12 @@
       "PrizeDraw/1.0.0": {
         "dependencies": {
           "DataLayer": "1.0.0",
+          "FreeSpire.Doc": "7.11.0",
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
           "Microsoft.NETCore.App": "2.2.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.0"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.0",
+          "Syncfusion.DocIO.Net.Core": "17.4.0.46"
         },
         "runtime": {
           "PrizeDraw.dll": {}
@@ -51,6 +53,32 @@
         },
         "compile": {
           "lib/netstandard2.0/CsvHelper.dll": {}
+        }
+      },
+      "FreeSpire.Doc/7.11.0": {
+        "dependencies": {
+          "SkiaSharp": "1.68.0",
+          "System.Security.Cryptography.Xml": "4.5.0",
+          "System.Text.Encoding.CodePages": "4.5.0"
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/Spire.Doc.dll": {
+            "assemblyVersion": "7.11.0.41420",
+            "fileVersion": "7.11.0.41420"
+          },
+          "lib/netcoreapp2.0/Spire.License.dll": {
+            "assemblyVersion": "1.3.7.320",
+            "fileVersion": "1.3.7.320"
+          },
+          "lib/netcoreapp2.0/Spire.Pdf.dll": {
+            "assemblyVersion": "5.11.0.2420",
+            "fileVersion": "5.11.0.2420"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp2.0/Spire.Doc.dll": {},
+          "lib/netcoreapp2.0/Spire.License.dll": {},
+          "lib/netcoreapp2.0/Spire.Pdf.dll": {}
         }
       },
       "Microsoft.CodeAnalysis.CSharp.Workspaces/2.8.0": {
@@ -479,6 +507,101 @@
         },
         "compile": {
           "lib/netstandard1.0/Remotion.Linq.dll": {}
+        }
+      },
+      "SkiaSharp/1.68.0": {
+        "runtime": {
+          "lib/netstandard1.3/SkiaSharp.dll": {
+            "assemblyVersion": "1.68.0.0",
+            "fileVersion": "1.68.0.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/osx/native/libSkiaSharp.dylib": {
+            "rid": "osx",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/tizen-armel/native/libSkiaSharp.so": {
+            "rid": "tizen-armel",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/tizen-x86/native/libSkiaSharp.so": {
+            "rid": "tizen-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libSkiaSharp.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/libSkiaSharp.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.3/SkiaSharp.dll": {}
+        }
+      },
+      "Syncfusion.Compression.Net.Core/17.4.0.46": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {
+            "assemblyVersion": "17.4200.0.46",
+            "fileVersion": "17.4200.0.46"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
+        }
+      },
+      "Syncfusion.DocIO.Net.Core/17.4.0.46": {
+        "dependencies": {
+          "Syncfusion.Compression.Net.Core": "17.4.0.46",
+          "Syncfusion.Licensing": "17.4.0.46",
+          "Syncfusion.OfficeChart.Net.Core": "17.4.0.46",
+          "System.Text.Encoding.CodePages": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Syncfusion.DocIO.Portable.dll": {
+            "assemblyVersion": "17.4200.0.46",
+            "fileVersion": "17.4200.0.46"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Syncfusion.DocIO.Portable.dll": {}
+        }
+      },
+      "Syncfusion.Licensing/17.4.0.46": {
+        "runtime": {
+          "lib/netstandard2.0/Syncfusion.Licensing.dll": {
+            "assemblyVersion": "17.4.0.46",
+            "fileVersion": "17.4.0.46"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Syncfusion.Licensing.dll": {}
+        }
+      },
+      "Syncfusion.OfficeChart.Net.Core/17.4.0.46": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.3",
+          "Syncfusion.Compression.Net.Core": "17.4.0.46"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Syncfusion.OfficeChart.Portable.dll": {
+            "assemblyVersion": "17.4200.0.46",
+            "fileVersion": "17.4200.0.46"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Syncfusion.OfficeChart.Portable.dll": {}
         }
       },
       "System.Collections.Immutable/1.5.0": {},
@@ -3399,6 +3522,9 @@
           "Microsoft.NETCore.Platforms": "2.2.0",
           "System.Runtime.CompilerServices.Unsafe": "4.5.1"
         },
+        "compile": {
+          "ref/netstandard2.0/System.Text.Encoding.CodePages.dll": {}
+        },
         "compileOnly": true
       },
       "System.Text.Encoding.Extensions/4.3.0": {
@@ -3590,6 +3716,13 @@
       "path": "csvhelper/12.1.2",
       "hashPath": "csvhelper.12.1.2.nupkg.sha512"
     },
+    "FreeSpire.Doc/7.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Rg7axyvwCU8PPuhsetIM4FZuuOL6PROJOXlhJo760wDS/4JJdo99JVDjqpGHej78yLYMSvtSuq0jjuTIYNEZgw==",
+      "path": "freespire.doc/7.11.0",
+      "hashPath": "freespire.doc.7.11.0.nupkg.sha512"
+    },
     "Microsoft.CodeAnalysis.CSharp.Workspaces/2.8.0": {
       "type": "package",
       "serviceable": true,
@@ -3757,6 +3890,41 @@
       "sha512": "sha512-twDAH8dAXXCAf3sRv1Tf94u66eEHvgU75hfn1nn2v4fSWXD50XoDOAk8WpSrbViNuMkB4kN1ElnOGm1c519IHg==",
       "path": "remotion.linq/2.2.0",
       "hashPath": "remotion.linq.2.2.0.nupkg.sha512"
+    },
+    "SkiaSharp/1.68.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ptuxAKk9FiClNnAgWM8hVMCYw/B0hUJWZ8W6efnIAtJmJn/Xl4jvxxDF5WOqfQYCLVzxXw5gvBPVxvTLblFp0g==",
+      "path": "skiasharp/1.68.0",
+      "hashPath": "skiasharp.1.68.0.nupkg.sha512"
+    },
+    "Syncfusion.Compression.Net.Core/17.4.0.46": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HP/IVbJWE9P1RR1WQyOGOkAjcIs2BF7A5pZDfn4ew7JMoTBHn6DuI8QMpMqEcRPARJckgCzm4iBxFMgPltPOlA==",
+      "path": "syncfusion.compression.net.core/17.4.0.46",
+      "hashPath": "syncfusion.compression.net.core.17.4.0.46.nupkg.sha512"
+    },
+    "Syncfusion.DocIO.Net.Core/17.4.0.46": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-43Upn1AOe8LII9jp+37N7lvo/bxEQgC/lLO6btwsPzTR2JtoH3N6k6wtzkVKE1i/vcFqH6YukBoJ7LaQbUl7NA==",
+      "path": "syncfusion.docio.net.core/17.4.0.46",
+      "hashPath": "syncfusion.docio.net.core.17.4.0.46.nupkg.sha512"
+    },
+    "Syncfusion.Licensing/17.4.0.46": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yD7S3JRFlcpUT+k/KrJ0/fPhyrELuRXzwkbFE7MpbL5SsuuwtnqLkp8rAR6vJDMcOijc1QP4Ocks/0A1ugVNUw==",
+      "path": "syncfusion.licensing/17.4.0.46",
+      "hashPath": "syncfusion.licensing.17.4.0.46.nupkg.sha512"
+    },
+    "Syncfusion.OfficeChart.Net.Core/17.4.0.46": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DftJs2Jb46us7Fto7E+Ilhkox4TSXISfVu2F+e9EE6OgtSHaX3pOT9XLZcKJbQGo6dntMH3SefGoSTjE/x/qeg==",
+      "path": "syncfusion.officechart.net.core/17.4.0.46",
+      "hashPath": "syncfusion.officechart.net.core.17.4.0.46.nupkg.sha512"
     },
     "System.Collections.Immutable/1.5.0": {
       "type": "package",
