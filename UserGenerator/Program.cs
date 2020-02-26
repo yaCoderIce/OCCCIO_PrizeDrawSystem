@@ -43,12 +43,53 @@ namespace PrizeDrawTool
         /// <param name="args">argument</param>
         private static void ProcessCommandLineArgs(string[] args)
         {
-            if(args.Length == 0)
+            if (args.Length == 0)
             {
                 //Print Error Message
                 PrintInvalidCommandLineUsageToConsole();
             }
-            else if(args[0] == "u" || args[0] == "p" || args[0] == "b")
+            else if (args[0] == "b")
+            {
+                bool valid = false;
+                string menuOption = "";
+
+                do
+                {
+                    Console.WriteLine("1:Print all records.");
+                    Console.WriteLine("2:Print specific records.");
+                    menuOption = Console.ReadLine();
+                    if(menuOption == "1" || menuOption == "2")
+                    {
+                        valid = true;
+                    }
+                } while (!valid);
+                
+                if (menuOption=="1")
+                {
+                    MailMerge();
+                }
+                else if (menuOption == "2")
+                {
+                    string userInput = "";
+                    Console.WriteLine("Please enter the individuals id, seperated by (,) if many");
+                    userInput = Console.ReadLine();
+                    string[] listOfId = userInput.Split(',');
+
+                    foreach(string id in listOfId)
+                    {
+                        Console.Write(id + " ");
+                    }
+
+                    try
+                    {
+                        MailMerge(listOfId);
+                    }catch(Exception ex)
+                    {
+                        Console.WriteLine("\n"+ex.Message + "\nSomething happened! Please validate id again.");
+                    }
+                }
+            }
+            else if(args[0] == "u" || args[0] == "p")
             {
                 // 2 is the minimum because of thats shortest possible directory eg C:
                 if(args.Length != 2)
@@ -58,10 +99,6 @@ namespace PrizeDrawTool
                 else if(args[0] == "p")
                 {
                     GenerateUsersAccounts(args[1], true);
-                }
-                else if (args[0] == "b")
-                {
-                    MailMerge();
                 }
                 else
                 {
@@ -290,6 +327,139 @@ namespace PrizeDrawTool
             document.MailMerge.Execute(attendees);
             document.SaveToFile("../../../Result/Result.docx", FileFormat.Docx);
             document.Close();
+        }
+        private static void MailMerge(string[] listOfId)
+        {
+            //Connection String
+            string connectionString = GetConnectionString(GetConfiguration());
+            string errorMessage = "";
+
+            //DataAccessor for attendee and vendor
+            AttendeeDataAccessor _attendeeAccessor = new AttendeeDataAccessor(new PrizeDrawDatabaseContext(connectionString));
+            VendorDataAccessor _vendorAccessor = new VendorDataAccessor(new PrizeDrawDatabaseContext(connectionString));
+
+            //Declara new document for saving name badge
+            Document document = new Document();
+
+            // List of OCCCIO college name
+            // may be useful in further development
+            string[] collegeName = { "durhamCollege", "algonquinCollege", "cambrianCollege", "canadoreCollege", "centennialCollege", "collegeBoreal",
+                "conestogaCollege","confederationCollege","fanshaweCollege","georgeBrownCollege","georgianCollege","humberCollege","laCite","lambtonCollege",
+                    "loyalistCollege","mohawkCollege","niagaraCollege","northernCollege","saultCollege","senecaCollege","sheridanCollege","sirSandfordFlemingCollege",
+                        "stClairCollege","stLawrenceCollege"};
+
+            //Get all attendee from database
+            IList<Attendee> attendees= new List<Attendee>();
+            IList<Vendor> vendors = _vendorAccessor.Get();
+
+            foreach (string id in listOfId)
+            {
+                //add attendee to the list
+                Attendee attendee = _attendeeAccessor.Get(Convert.ToInt32(id));
+                if (attendee != null)
+                {
+                    attendees.Add(attendee);
+                }
+                else
+                {
+                    errorMessage += "ID: " + id + " doesn't exist.";
+                }
+            }
+            
+            //List for staff, other, and vendor
+            List<Attendee> staff = new List<Attendee>();
+            List<Attendee> other = new List<Attendee>();
+            List<Attendee> vendor = new List<Attendee>();
+
+            //boolean for checking vendor
+            bool isVendor = false;
+
+            foreach (Attendee attendee in attendees)
+            {
+                if(attendee != null)
+                {
+                    //Check if name is longer than threshold
+                    const int MAX_LENGTH = 12;
+                    if ((attendee.FirstName.Length + attendee.LastName.Length) >= MAX_LENGTH)
+                    {
+                        attendee.LastName = attendee.LastName.Substring(0, 1) + ".";
+                    }
+                    else // if first name larger than threshold
+                    {
+                        //int spacing = MAX_LENGTH - (attendee.FirstName.Length + attendee.LastName.Length);
+                        //attendee.FirstName = new string(' ', spacing / 2) + attendee.FirstName;
+                        //attendee.LastName = attendee.LastName + new string(' ', (spacing / 2));
+                        //attendee.LastName = null;
+                        //Console.WriteLine(attendee.FirstName.ToString());
+                    }
+
+                    //Check if its vendor by comparing attendee company with vendor name
+                    foreach (Vendor potentialVendor in vendors)
+                    {
+                        //set it to lower case to make it case insensitive
+                        if (attendee.Company.ToLower() == potentialVendor.Name.ToLower())
+                        {
+                            vendor.Add(attendee);
+                            isVendor = true;
+                        }
+                    }
+
+                    //Check if company is durham, since if it is its a staff
+                    //set it to lower case to make it case insensitive
+                    if (attendee.Company.ToLower() == "durham")
+                    {
+                        staff.Add(attendee);
+                    }
+                    else if (isVendor == false)
+                    {
+                        other.Add(attendee);
+                        //    //For Debugging
+                        //    //Console.WriteLine((attendee.FirstName.Length + attendee.LastName.Length) + ", " + attendee.Id + ":" + attendee.FirstName + "" + attendee.LastName);
+                    }
+                    isVendor = false;
+                }
+            }
+
+            //Performing mail merge
+            //check if list is not empty, to prevent creating blank document
+            if (errorMessage != "")
+            {
+                throw new InvalidDataException(errorMessage);
+            }
+            else
+            {
+                if (other.Count > 0)
+                {
+                    document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Durham.doc", FileFormat.Doc);
+                    document.MailMerge.Execute(other);
+                    document.SaveToFile("../../../Result/Result_Other1.docx", FileFormat.Docx);
+                    document.Close();
+                }
+
+                if (staff.Count > 0)
+                {
+                    document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Staff.doc", FileFormat.Doc);
+                    document.MailMerge.Execute(staff);
+                    document.SaveToFile("../../../Result/Result_Staff" + DateTime.Now.ToString("hhmmss") + ".docx", FileFormat.Docx);
+                    document.Close();
+                }
+
+                if (vendor.Count > 0)
+                {
+                    document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Vendor.doc", FileFormat.Doc);
+                    document.MailMerge.Execute(vendor);
+                    document.SaveToFile("../../../Result/Result_Vendor1.docx", FileFormat.Docx);
+                    document.Close();
+                }
+
+                if (attendees != null)
+                {
+                    document.LoadFromFile("../../../LetterFormatting/LetterFormatting.doc", FileFormat.Doc);
+                    document.MailMerge.Execute(attendees);
+                    document.SaveToFile("../../../Result/Result1.docx", FileFormat.Docx);
+                    document.Close();
+                }
+            }
         }
     }
 }

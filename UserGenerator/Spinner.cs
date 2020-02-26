@@ -13,7 +13,8 @@ namespace PrizeDrawTool
         private static char[] spinner = { '|', '/', '-', '\\' };
 
         private int _index = 0;
-
+        
+        // Show loading screen on console
         public void PrintToConsole()
         {
             Console.Write(spinner[_index]);

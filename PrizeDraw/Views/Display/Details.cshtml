@@ -72,16 +72,18 @@
 
         $(document).ready(function () {
             showHideSpinner(true);
-            $('#text-instruction').show();
         });
         //event for enter clicked
         document.addEventListener("keydown", function (event) {
             if (event.keyCode === 13) {
+                //Hide the prompt text
                 $('#text-instruction').hide();
 
+                //Prevent default event
                 event.preventDefault();
 
                 drawWinner();
+                
             }
         });
         //Display loading animation
@@ -140,6 +142,7 @@
                     dataType: "json",
                     type: "POST",
                     contentType: 'application/json',
+
                     data: JSON.stringify({
                         PrizeId: @Model.PrizeId,
                         AttendeeId: attendeeId
@@ -156,15 +159,15 @@
 
         function drawWinnerSuccess(winnerObj, statusText, xhr) {
             allowRedraw = true;
-
             showHideSpinner(true);
 
+            //check if the status is ok
+            // HHTP Messages 200 mean OK
             if (xhr.status == 200) {
-                console.log(winnerObj);
-
-                updateNumberOfPrizesDisplay();
-                showWinner(winnerObj);
-            } else {
+                console.log(winnerObj); // Display winner in console 
+                updateNumberOfPrizesDisplay(); // update number of prizes display
+                showWinner(winnerObj); //Display winner
+            } else { // if the request failed print erorr message
                 console.log("Came back from ballot box empty handed...Anyone available to win?");
             }
         }

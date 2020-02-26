@@ -29,6 +29,7 @@ namespace PrizeDraw.Controllers
         [HttpGet]
         [Authorize(Roles = "Admin")]
         // GET: Attendee
+        // For index page
         public IActionResult Index()
         {
             return View(new AttendeeIndexViewModel()
@@ -148,32 +149,5 @@ namespace PrizeDraw.Controllers
                 NumberImportedAttendees = numberImportedAttendees
             });
         }
-        /*
-        /// <summary>
-        /// Export Button Event handler
-        /// </summary>
-        /// <param name="attendeeFile">csv file</param>
-        /// <returns></returns>
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public void Export()
-        {
-            //FileStream fileStreamPath = new FileStream(@"Data/LetterFormatting.docx", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                Document document = new Document();
-                document.LoadFromFile(@"Data/LetterFormatting.docx", FileFormat.Docx);
-                //string[] fieldNames = { "Name", "College", "JobTitle", "Barcode", "Barcode" };
-                //string[] fieldValues = { "Abdellah El Bilali", "Algonquin College", "Enterprise Business Platforms", "931854203", "931854203" };
-
-                IList<Attendee> attendees = _attendeeAccessor.Get();
-                
-                document.MailMerge.Execute(attendees);
-
-                MemoryStream stream = new MemoryStream();
-                document.SaveToFile(@"Result.docx", FileFormat.Docx);
-                document.Close();
-                System.Diagnostics.Process.Start(@"Result.docx");
-            
-        }
-        */
     }
 }

@@ -5,8 +5,8 @@
 
 <header id="header" class="row bg-white">
     <div class="col-lg-8">
-        <img src="~/img/DC_FULL_COLOUR.svg"/>
-    </div>
+        <a asp-controller="Home" asp-action="Index" class="txt-menu"><img src="~/img/DC_FULL_COLOUR.svg" /></a>
+</div>
     <div id="loginHeader" class="col-lg-4">
         @if (SignInManager.IsSignedIn(User))
         {

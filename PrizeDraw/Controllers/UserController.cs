@@ -44,6 +44,7 @@ namespace PrizeDraw.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
+        // Details Page
         public IActionResult Details(int id)
         {
             return View();
@@ -51,6 +52,7 @@ namespace PrizeDraw.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
+        // Create Page
         public IActionResult Create()
         {
             return View("CreateEdit", GetCreateEditViewModel());

@@ -173,7 +173,10 @@ namespace PrizeDraw.Controllers
             {
                 // Draw a prize winner
                 winningTicket = _prizeDataAccessor.DrawPrizeWinner(prizeId);
-                winningAttendee = _attendeeDataAccessor.Get(winningTicket.AttendeeId);
+
+                // Check if winning ticket is not null to prevent NullReferenceException
+                if(winningTicket != null)
+                    winningAttendee = _attendeeDataAccessor.Get(winningTicket.AttendeeId);
             }
 
             PrizeWinnerModel winnerModel = null;

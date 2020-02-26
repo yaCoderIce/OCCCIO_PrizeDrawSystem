@@ -14,9 +14,10 @@ namespace PrizeDraw.Controllers
     public class DisplayController : Controller
     {
         private PrizeDataAccessor _prizeDataAccessor;
-
+        
         public DisplayController(PrizeDrawDatabaseContext context)
         {
+            // Declaring PrizeDataAccessor for getting record in database
             _prizeDataAccessor = new PrizeDataAccessor(context);
         }
 
@@ -36,7 +37,7 @@ namespace PrizeDraw.Controllers
         //@see View/Display/Details/#
         public IActionResult Details(int? id)
         {
-            if (!id.HasValue)
+            if (!id.HasValue)// If id doesnt have value
             {
                 throw new ArgumentNullException(nameof(id));
             }

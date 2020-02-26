@@ -17,7 +17,7 @@
     {
         <tr>
             <td>
-                @if (prize.Image != null)
+                @if (prize.Image != null) //check if there is prize picture
                 {
                     <img src="data:image;base64,@System.Convert.ToBase64String(prize.Image)" width="100" height="100" />
                 }
@@ -29,7 +29,7 @@
                     // Check If there is a sponsor
                     @prize.SponsorName;
                 }
-                else
+                else //if not display general prize
                 {
                     <span>General Prize</span>
                 }

@@ -8,8 +8,9 @@ namespace PrizeDraw.Models
 {
     public class AttendeeIndexViewModel
     {
+        //list of attendee
         public IList<Attendee> Attendees { get; set; }
-
+        //Number imported attendee can be null
         public int? NumberImportedAttendees { get; set; }
     }
 }
