@@ -98,10 +98,12 @@ namespace PrizeDrawTool
                 }
                 else if(args[0] == "p")
                 {
+                    //generate user account with just the password
                     GenerateUsersAccounts(args[1], true);
                 }
                 else
                 {
+                    //generate user account
                     GenerateUsersAccounts(args[1], false);
                 }
             }
