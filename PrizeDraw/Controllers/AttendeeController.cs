@@ -117,9 +117,9 @@ namespace PrizeDraw.Controllers
         {
             int numberImportedAttendees = 0;
             //Code Added To check file extension
-            //string extension = (Path.GetExtension(attendeeFile.FileName)).ToLower();
+            string extension = (Path.GetExtension(attendeeFile.FileName)).ToLower();
             //Check if Input file is good
-            if (/*extension!="csv" ||*/ attendeeFile == null || attendeeFile.Length == 0)
+            if (extension!=".csv" || attendeeFile == null || attendeeFile.Length == 0)
             {
                 ModelState.AddModelError("attendeeFile", "Invalid file");
             }

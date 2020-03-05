@@ -276,7 +276,7 @@ namespace PrizeDrawTool
                 {
                     attendee.LastName = attendee.LastName.Substring(0, 1) + ".";
                 }
-                else // if first name larger than 25
+                else // if name is shorter than 12
                 {
                     //int spacing = MAX_LENGTH - (attendee.FirstName.Length + attendee.LastName.Length);
                     //attendee.FirstName = new string(' ', spacing / 2) + attendee.FirstName;
@@ -308,25 +308,71 @@ namespace PrizeDrawTool
             }
 
             //Performing mail merge
-            document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Durham.doc", FileFormat.Doc);
-            document.MailMerge.Execute(other);
-            document.SaveToFile("../../../Result/Result_Other.docx", FileFormat.Docx);
-            document.Close();
+            //wrapped inside a try catch for handling exception
+            try
+            {
+                document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Durham.doc", FileFormat.Doc);
+                document.MailMerge.Execute(other);
+                document.SaveToFile("../../../Result/Result_Other.docx", FileFormat.Docx);
+                document.Close();
+            }
+            catch (FileNotFoundException ex) // If file cant be found
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (IOException ex) // If file is in use
+            {
+                Console.WriteLine(ex.Message);
+            }
 
-            document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Staff.doc", FileFormat.Doc);
-            document.MailMerge.Execute(staff);
-            document.SaveToFile("../../../Result/Result_Staff.docx", FileFormat.Docx);
-            document.Close();
+            try
+            {
+                document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Staff.doc", FileFormat.Doc);
+                document.MailMerge.Execute(staff);
+                document.SaveToFile("../../../Result/Result_Staff.docx", FileFormat.Docx);
+                document.Close();
+            }
+            catch (FileNotFoundException ex) // If file cant be found
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (IOException ex) // If file is in use
+            {
+                Console.WriteLine(ex.Message);
+            }
 
-            document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Vendor.doc", FileFormat.Doc);
-            document.MailMerge.Execute(vendor);
-            document.SaveToFile("../../../Result/Result_Vendor.docx", FileFormat.Docx);
-            document.Close();
+            try
+            {
+                document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Vendor.doc", FileFormat.Doc);
+                document.MailMerge.Execute(vendor);
+                document.SaveToFile("../../../Result/Result_Vendor.docx", FileFormat.Docx);
+                document.Close();
+            }
+            catch (FileNotFoundException ex) // If file cant be found
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (IOException ex) // If file is in use
+            {
+                Console.WriteLine(ex.Message);
+            }
 
-            document.LoadFromFile("../../../LetterFormatting/LetterFormatting.doc", FileFormat.Doc);
-            document.MailMerge.Execute(attendees);
-            document.SaveToFile("../../../Result/Result.docx", FileFormat.Docx);
-            document.Close();
+            try
+            {
+                document.LoadFromFile("../../../LetterFormatting/LetterFormatting.doc", FileFormat.Doc);
+                document.MailMerge.Execute(attendees);
+                document.SaveToFile("../../../Result/Result.docx", FileFormat.Docx);
+                document.Close();
+            }
+            catch (FileNotFoundException ex) // If file cant be found
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (IOException ex) // If file is in use
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
         private static void MailMerge(string[] listOfId)
         {
