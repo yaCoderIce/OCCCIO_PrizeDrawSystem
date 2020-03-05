@@ -393,7 +393,7 @@ namespace PrizeDrawTool
                 "conestogaCollege","confederationCollege","fanshaweCollege","georgeBrownCollege","georgianCollege","humberCollege","laCite","lambtonCollege",
                     "loyalistCollege","mohawkCollege","niagaraCollege","northernCollege","saultCollege","senecaCollege","sheridanCollege","sirSandfordFlemingCollege",
                         "stClairCollege","stLawrenceCollege"};
-
+            
             //Get all attendee from database
             IList<Attendee> attendees= new List<Attendee>();
             IList<Vendor> vendors = _vendorAccessor.Get();
