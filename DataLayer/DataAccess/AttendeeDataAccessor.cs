@@ -113,12 +113,15 @@ namespace PrizeDraw.DataLayer.DataAccess
         /// <param name="attendee">attendee</param>
         public void Update(Attendee attendee)
         {
+            //get the old attendee information, .first() meaning take the first result
             Attendee oldAttendee = _attendeeProvider.Get(attendee.Id).First();
 
+            //set the attendee information with the new one
             oldAttendee.Address1 = attendee.Address1;
             oldAttendee.Address2 = attendee.Address2;
             oldAttendee.City = attendee.City;
             oldAttendee.Company = attendee.Company;
+            oldAttendee.JobTitle = attendee.JobTitle;
             oldAttendee.Email = attendee.Email;
             oldAttendee.FirstName = attendee.FirstName;
             oldAttendee.LastName = attendee.LastName;

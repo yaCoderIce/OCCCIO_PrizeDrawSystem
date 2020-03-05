@@ -111,7 +111,7 @@ namespace PrizeDrawTool
             }
         }
         /// <summary>
-        /// PrintInvalidCommandLineUsageToConsole - Provide error message
+        /// PrintInvalidCommandLineUsageToConsole - print out error message to the console
         /// </summary>
         private static void PrintInvalidCommandLineUsageToConsole()
         {
@@ -121,10 +121,10 @@ namespace PrizeDrawTool
             Console.WriteLine("Generate New User Passwords: PrizeDrawTool.exe p <folder path>");
         }
         /// <summary>
-        /// GenerateUsersAccounts - generate user for vendor or generate password for each users
+        /// GenerateUsersAccounts - generate user for vendor or generate password for each users.
         /// </summary>
-        /// <param name="outputPath"></param>
-        /// <param name="justPasswords"></param>
+        /// <param name="outputPath">Location for output file</param>
+        /// <param name="justPasswords">boolean</param>
         private static void GenerateUsersAccounts(string outputPath, bool justPasswords)
         {
             UserGenerator userGenerator = new UserGenerator(GetConnectionString(GetConfiguration()));
@@ -476,34 +476,78 @@ namespace PrizeDrawTool
             {
                 if (other.Count > 0)
                 {
-                    document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Durham.doc", FileFormat.Doc);
-                    document.MailMerge.Execute(other);
-                    document.SaveToFile("../../../Result/Result_Other1.docx", FileFormat.Docx);
-                    document.Close();
+                    try
+                    {
+                        document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Durham.doc", FileFormat.Doc);
+                        document.MailMerge.Execute(other);
+                        document.SaveToFile("../../../Result/Result_Other.docx", FileFormat.Docx);
+                        document.Close();
+                    }
+                    catch (FileNotFoundException ex) // If file cant be found
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    catch (IOException ex) // If file is in use
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
 
                 if (staff.Count > 0)
                 {
-                    document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Staff.doc", FileFormat.Doc);
-                    document.MailMerge.Execute(staff);
-                    document.SaveToFile("../../../Result/Result_Staff" + DateTime.Now.ToString("hhmmss") + ".docx", FileFormat.Docx);
-                    document.Close();
+                    try
+                    {
+                        document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Staff.doc", FileFormat.Doc);
+                        document.MailMerge.Execute(staff);
+                        document.SaveToFile("../../../Result/Result_Staff.docx", FileFormat.Docx);
+                        document.Close();
+                    }
+                    catch (FileNotFoundException ex) // If file cant be found
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    catch (IOException ex) // If file is in use
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
 
                 if (vendor.Count > 0)
                 {
-                    document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Vendor.doc", FileFormat.Doc);
-                    document.MailMerge.Execute(vendor);
-                    document.SaveToFile("../../../Result/Result_Vendor1.docx", FileFormat.Docx);
-                    document.Close();
+                    try
+                    {
+                        document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Vendor.doc", FileFormat.Doc);
+                        document.MailMerge.Execute(vendor);
+                        document.SaveToFile("../../../Result/Result_Vendor.docx", FileFormat.Docx);
+                        document.Close();
+                    }
+                    catch (FileNotFoundException ex) // If file cant be found
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    catch (IOException ex) // If file is in use
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
 
                 if (attendees != null)
                 {
-                    document.LoadFromFile("../../../LetterFormatting/LetterFormatting.doc", FileFormat.Doc);
-                    document.MailMerge.Execute(attendees);
-                    document.SaveToFile("../../../Result/Result1.docx", FileFormat.Docx);
-                    document.Close();
+                    try
+                    {
+                        document.LoadFromFile("../../../LetterFormatting/LetterFormatting.doc", FileFormat.Doc);
+                        document.MailMerge.Execute(attendees);
+                        document.SaveToFile("../../../Result/Result.docx", FileFormat.Docx);
+                        document.Close();
+                    }
+                    catch (FileNotFoundException ex) // If file cant be found
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    catch (IOException ex) // If file is in use
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
             }
         }
