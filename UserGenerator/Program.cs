@@ -50,17 +50,25 @@ namespace PrizeDrawTool
             }
             else if (args[0] == "b")
             {
+                //Prompting user to either print all records or a specific one
                 bool valid = false;
                 string menuOption = "";
+                Console.WriteLine("Menu:");
+                Console.WriteLine("--------------------------");
+                Console.WriteLine("1:Print all records.");
+                Console.WriteLine("2:Print specific records.");
+                Console.Write("\n\nPlease enter your choice:");
 
                 do
                 {
-                    Console.WriteLine("1:Print all records.");
-                    Console.WriteLine("2:Print specific records.");
                     menuOption = Console.ReadLine();
                     if(menuOption == "1" || menuOption == "2")
                     {
                         valid = true;
+                    }
+                    else
+                    {
+                        Console.Write("Please enter a valid choice:");
                     }
                 } while (!valid);
                 
@@ -71,7 +79,7 @@ namespace PrizeDrawTool
                 else if (menuOption == "2")
                 {
                     string userInput = "";
-                    Console.WriteLine("Please enter the individuals id, seperated by (,) if many");
+                    Console.WriteLine("Please enter the individuals id, seperated by (,) if more than 1");
                     userInput = Console.ReadLine();
                     string[] listOfId = userInput.Split(',');
 
