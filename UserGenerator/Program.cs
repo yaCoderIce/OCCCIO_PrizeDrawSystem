@@ -109,6 +109,7 @@ namespace PrizeDrawTool
                 Console.WriteLine("2:Print specific records.");
                 Console.Write("\n\nPlease enter your choice:");
 
+                //Validating user input
                 do
                 {
                     menuOption = Console.ReadLine();
@@ -128,9 +129,11 @@ namespace PrizeDrawTool
                 }
                 else if (menuOption == "2")
                 {
+                    //getting multiple attendee id for printing
                     string userInput = "";
                     Console.WriteLine("Please enter the individuals id, seperated by (,) if more than 1");
                     userInput = Console.ReadLine();
+                    //splitting user input
                     string[] listOfId = userInput.Split(',');
 
                     foreach(string id in listOfId)
