@@ -29,6 +29,7 @@ namespace PrizeDrawTool
                 Console.WriteLine("b:Generate name badge.");
                 Console.Write("\n\nPlease enter your choice:");
 
+                //Validate user input to only accepts 'p', 'u', and 'b'
                 do
                 {
                     menuOption[0] = Console.ReadLine();
@@ -37,9 +38,25 @@ namespace PrizeDrawTool
                         valid = true;
                         if (menuOption[0] == "p" || menuOption[0] == "u")
                         {
+                            //Prompt for output file path
                             Console.WriteLine("Please specify file path for output file.");
                             Console.WriteLine("eg. C:/PrizeDraw");
-                            menuOption[1] = Console.ReadLine();
+                            
+                            //Validate output file path, it can't be less than 2 character
+                            //eg. the shortest can be C:
+                            do
+                            {
+                                menuOption[1] = Console.ReadLine();
+                                if (menuOption[1].Length < 2)
+                                {
+                                    valid = false;
+                                    Console.Write("Please enter a valid output file path:");
+                                }
+                                else
+                                {
+                                    valid = true;
+                                }
+                            } while (!valid);
                         }
                     }
                     else
@@ -47,11 +64,14 @@ namespace PrizeDrawTool
                         Console.Write("Please enter a valid choice:");
                     }
                 } while (!valid);
+
                 // To Change Command Line, right click on project -> Debug -> Application arguments:
-                ProcessCommandLineArgs(menuOption);
                 //ProcessCommandLineArgs(args);
+                
+                //pass user input to ProcessCommandLineArgs
+                ProcessCommandLineArgs(menuOption);
             }
-            catch(Exception ex)// Catch General Exception
+            catch (Exception ex)// Catch General Exception
             {               
                 //Display Error message
                 if(ex.InnerException != null)
