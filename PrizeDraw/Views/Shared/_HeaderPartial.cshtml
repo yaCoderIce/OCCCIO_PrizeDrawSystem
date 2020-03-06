@@ -10,7 +10,7 @@
     <div id="loginHeader" class="col-lg-4">
         @if (SignInManager.IsSignedIn(User))
         {
-            <a id="loggedInLink" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"class="txt-secondary" >Logged in as @UserManager.GetUserName(User)</a>
+            <a id="loggedInLink" asp-controller="Home" asp-action="Index" title="Manage"class="txt-secondary" >Logged in as @UserManager.GetUserName(User)</a>
             <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button id="logout" type="submit" class="txt-secondary btn-link">Logout</button>
             </form>
