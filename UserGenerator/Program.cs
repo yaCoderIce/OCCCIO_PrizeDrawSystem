@@ -19,8 +19,37 @@ namespace PrizeDrawTool
         {
             try
             {
+                //Prompting user to either print all records or a specific one
+                bool valid = false;
+                string[] menuOption = new string[2];
+                Console.WriteLine("Menu:");
+                Console.WriteLine("--------------------------");
+                Console.WriteLine("p:Generate user password.");
+                Console.WriteLine("u:Generate user vendor.");
+                Console.WriteLine("b:Generate name badge.");
+                Console.Write("\n\nPlease enter your choice:");
+
+                do
+                {
+                    menuOption[0] = Console.ReadLine();
+                    if (menuOption[0] == "p" || menuOption[0] == "u" || menuOption[0] == "b")
+                    {
+                        valid = true;
+                        if (menuOption[0] == "p" || menuOption[0] == "u")
+                        {
+                            Console.WriteLine("Please specify file path for output file.");
+                            Console.WriteLine("eg. C:/PrizeDraw");
+                            menuOption[1] = Console.ReadLine();
+                        }
+                    }
+                    else
+                    {
+                        Console.Write("Please enter a valid choice:");
+                    }
+                } while (!valid);
                 // To Change Command Line, right click on project -> Debug -> Application arguments:
-                ProcessCommandLineArgs(args);
+                ProcessCommandLineArgs(menuOption);
+                //ProcessCommandLineArgs(args);
             }
             catch(Exception ex)// Catch General Exception
             {               
@@ -53,6 +82,7 @@ namespace PrizeDrawTool
                 //Prompting user to either print all records or a specific one
                 bool valid = false;
                 string menuOption = "";
+                Console.Clear();
                 Console.WriteLine("Menu:");
                 Console.WriteLine("--------------------------");
                 Console.WriteLine("1:Print all records.");
