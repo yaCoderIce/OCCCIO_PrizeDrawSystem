@@ -95,7 +95,7 @@ CREATE TABLE Winners (
 INSERT INTO Roles VALUES ('Admin'), ('Vendor'), ('Staff');
 
 INSERT INTO Users (UserName) VALUES ('admin'), ('staff')
-
+--Add admin role
 INSERT INTO UserRoles (
 		UserId
 		, RoleId
@@ -103,6 +103,13 @@ INSERT INTO UserRoles (
 		1
 		, 1
 );
-
+--Add staff role
+INSERT INTO UserRoles (
+		UserId
+		, RoleId
+	) VALUES (
+		2
+		, 3
+);
 COMMIT;
 --ROLLBACK

@@ -116,7 +116,7 @@ namespace PrizeDrawTool
                 .Replace("/", ".")
                 .Replace("\\", ".")
                 .ToLowerInvariant();
-
+            //check the length
             return (userName.Length > 10) ? userName.Substring(0, 10) : userName;
         }
 
