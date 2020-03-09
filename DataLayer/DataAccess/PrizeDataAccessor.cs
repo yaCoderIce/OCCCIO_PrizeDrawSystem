@@ -247,7 +247,7 @@ namespace PrizeDraw.DataLayer.DataAccess
 
             List<PrizeTicket> eligibleTickets = (from at in allTickets
                                                 where !inEligibleAttendees.Contains(at.AttendeeId)
-                                                select at).ToList();
+                                                select at).GroupBy(at => at.AttendeeId).Select(g=>g.First()).ToList();
 
             return eligibleTickets;
         }
