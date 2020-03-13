@@ -1,8 +1,7 @@
 {
   "profiles": {
     "PrizeDrawTool": {
-      "commandName": "Project",
-      "commandLineArgs": "p C:/PrizeDraw"
+      "commandName": "Project"
     }
   }
 }

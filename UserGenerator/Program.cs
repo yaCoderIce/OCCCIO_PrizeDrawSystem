@@ -132,7 +132,7 @@ namespace PrizeDrawTool
                     //getting multiple attendee id for printing
                     string userInput = "";
                     Console.WriteLine("Please enter the individuals id, seperated by (,) if more than 1");
-                    userInput = Console.ReadLine();
+                    userInput = Console.ReadLine().Trim();
                     //splitting user input
                     string[] listOfId = userInput.Split(',');
 
@@ -351,14 +351,14 @@ namespace PrizeDrawTool
                 //Check if its vendor
                 foreach(Vendor potentialVendor in vendors)
                 {
-                    if (attendee.Company == potentialVendor.Name)
+                    if (attendee.Company.ToLower() == potentialVendor.Name.ToLower())
                     {
                         vendor.Add(attendee);
                         isVendor = true;
                     }
                 }
 
-                if (attendee.Company == "Durham")
+                if (attendee.Company.ToLower() == "durham" || attendee.Company.ToLower() == "durham college")
                 {
                     staff.Add(attendee);
                 }
@@ -543,7 +543,7 @@ namespace PrizeDrawTool
                     {
                         document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Durham.doc", FileFormat.Doc);
                         document.MailMerge.Execute(other);
-                        document.SaveToFile("../../../Result/Result_Other.docx", FileFormat.Docx);
+                        document.SaveToFile("../../../Result/Result_Other" + DateTime.Now.ToString("hhmmtt") + ".docx", FileFormat.Docx);
                         document.Close();
                     }
                     catch (FileNotFoundException ex) // If file cant be found
@@ -562,7 +562,7 @@ namespace PrizeDrawTool
                     {
                         document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Staff.doc", FileFormat.Doc);
                         document.MailMerge.Execute(staff);
-                        document.SaveToFile("../../../Result/Result_Staff.docx", FileFormat.Docx);
+                        document.SaveToFile("../../../Result/Result_Staff" + DateTime.Now.ToString("hhmmtt") + ".docx", FileFormat.Docx);
                         document.Close();
                     }
                     catch (FileNotFoundException ex) // If file cant be found
@@ -581,7 +581,7 @@ namespace PrizeDrawTool
                     {
                         document.LoadFromFile("../../../LetterFormatting/LetterFormatting_Vendor.doc", FileFormat.Doc);
                         document.MailMerge.Execute(vendor);
-                        document.SaveToFile("../../../Result/Result_Vendor.docx", FileFormat.Docx);
+                        document.SaveToFile("../../../Result/Result_Vendor" + DateTime.Now.ToString("hhmmtt") + ".docx", FileFormat.Docx);
                         document.Close();
                     }
                     catch (FileNotFoundException ex) // If file cant be found
@@ -600,7 +600,7 @@ namespace PrizeDrawTool
                     {
                         document.LoadFromFile("../../../LetterFormatting/LetterFormatting.doc", FileFormat.Doc);
                         document.MailMerge.Execute(attendees);
-                        document.SaveToFile("../../../Result/Result.docx", FileFormat.Docx);
+                        document.SaveToFile("../../../Result/Result"+DateTime.Now.ToString("hhmmtt") + ".docx", FileFormat.Docx);
                         document.Close();
                     }
                     catch (FileNotFoundException ex) // If file cant be found
