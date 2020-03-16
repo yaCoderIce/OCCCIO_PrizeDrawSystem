@@ -15,3 +15,4 @@ C:\Users\s00732221\Desktop\Project Repo\DataLayer\obj\Release\netcoreapp2.2\Data
 C:\Users\s00732221\Desktop\Project Repo\DataLayer\obj\Release\netcoreapp2.2\DataLayer.AssemblyInfo.cs
 C:\Users\s00732221\Desktop\Project Repo\DataLayer\obj\Release\netcoreapp2.2\DataLayer.dll
 C:\Users\s00732221\Desktop\Project Repo\DataLayer\obj\Release\netcoreapp2.2\DataLayer.pdb
+C:\Users\s00732221\Desktop\Project Repo\DataLayer\obj\Release\netcoreapp2.2\DataLayer.csprojAssemblyReference.cache
